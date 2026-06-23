@@ -3,9 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="theme-color" content="#e8f0fe">
+<meta name="theme-color" content="#3b6fd6">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="الميرة">
 <title>شعبة الميرة - قسم جوازات الناصرية</title>
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi2LTYudio2Kkg2KfZhNmF2YrYsdipIiwic2hvcnRfbmFtZSI6Itin2YTZhdmK2LHYqSIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjZThmMGZlIiwidGhlbWVfY29sb3IiOiIjZThmMGZlIiwiaWNvbnMiOlt7InNyYyI6Imljb24ucG5nIiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3BuZyJ9XX0=">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="icon" type="image/png" href="./icon-192.png">
 <style>
 :root{
   --bg1:#eef4ff; --bg2:#e3ecfb; --bg3:#f3f7ff;
@@ -201,21 +207,22 @@ hr.sep{border:none;border-top:1px solid rgba(120,150,200,0.2);margin:14px 0}
 .fp-body{max-width:1000px;margin:0 auto;padding:0 14px 60px}
 .fp-logo{width:38px;height:38px;border-radius:10px;object-fit:contain;background:#fff;padding:2px;flex:none}
 /* معاينة الوصل الرسمي داخل التطبيق */
-.offrec{background:#fff;color:#000;padding:16px;border-radius:10px;font-size:16px}
-.offrec .off-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.offrec .off-right{font-size:15px;line-height:1.8;font-weight:700;text-align:right}
-.offrec .off-left{font-size:15px;line-height:1.9;text-align:left}
-.offrec .off-logo img{width:80px;height:80px;object-fit:contain}
-.offrec .off-title{text-align:center;font-weight:800;font-size:17px;margin:14px 0 8px;text-decoration:underline}
-.offrec .off-parties{font-size:15px;line-height:1.9;margin:6px 0;border:1px solid #ccc;border-radius:6px;padding:8px;background:#f7f9fc}
-.offrec .off-intro{font-size:16px;margin:8px 0 12px;line-height:1.8;font-weight:600}
-.offrec .off-table{width:100%;border-collapse:collapse;font-size:16px}
-.offrec .off-table th,.offrec .off-table td{border:1px solid #000;padding:8px;text-align:right;height:32px}
-.offrec .off-table th{text-align:center;font-weight:800;background:#eef4ff}
-.offrec .off-signdate{text-align:center;font-size:16px;font-weight:700;margin:18px 0 6px}
-.offrec .off-sign{display:flex;justify-content:space-between;margin-top:24px;font-size:16px;line-height:1.9}
+.offrec{background:#fff;color:#000;padding:16px;border-radius:10px;font-size:14px}
+.offrec .off-head{display:grid;grid-template-columns:1fr auto 1.35fr;align-items:flex-start;gap:6px;direction:ltr}
+.offrec .off-ministry{font-size:14px;line-height:1.85;font-weight:700;text-align:left;white-space:nowrap;direction:rtl;grid-column:3}
+.offrec .off-num{font-size:14px;line-height:1.85;text-align:left;white-space:nowrap;font-weight:700;direction:rtl;grid-column:1}
+.offrec .off-logo{display:flex;justify-content:center;align-items:flex-start;padding-top:6px;grid-column:2}
+.offrec .off-logo img{width:74px;height:74px;object-fit:contain}
+.offrec .off-title{text-align:center;font-weight:800;font-size:16px;margin:14px 0 8px;text-decoration:underline}
+.offrec .off-parties{font-size:14px;line-height:1.9;margin:6px 0;border:1px solid #ccc;border-radius:6px;padding:8px;background:#f7f9fc}
+.offrec .off-intro{font-size:14px;margin:8px 0 12px;line-height:1.8;font-weight:600}
+.offrec .off-table{width:100%;border-collapse:collapse;font-size:14px}
+.offrec .off-table th,.offrec .off-table td{border:1px solid #000;padding:8px;text-align:right;height:30px}
+.offrec .off-table th{text-align:center;font-weight:800;background:#eef4ff;font-size:14px}
+.offrec .off-signdate{text-align:center;font-size:14px;font-weight:700;margin:14px 0 6px}
+.offrec .off-sign{display:flex;justify-content:space-between;margin-top:56px;font-size:14px;line-height:2}
 .offrec .sign-col{width:31%}
-.offrec .sign-t{font-weight:800;margin-bottom:5px}
+.offrec .sign-t{font-weight:800;margin-bottom:8px}
 </style>
 </head>
 
@@ -395,6 +402,8 @@ hr.sep{border:none;border-top:1px solid rgba(120,150,200,0.2);margin:14px 0}
 </section>
 
 </div>
+
+<button id="installFab" onclick="installApp()" style="display:none;position:fixed;bottom:78px;left:14px;z-index:70;border:none;cursor:pointer;background:linear-gradient(135deg,#23a06a,#2bbd7e);color:#fff;font-family:inherit;font-weight:800;font-size:13px;padding:11px 16px;border-radius:30px;box-shadow:0 6px 18px rgba(35,160,106,.45);align-items:center;gap:7px">📲 تثبيت التطبيق</button>
 
 <nav class="tabbar glass">
   <button data-tab="home" class="active" onclick="go('home')"><span class="ti">🏠</span>المواد</button>
@@ -1321,13 +1330,45 @@ async function wipeDB(){
   await loadAll();fillSelects();renderHome();closeModal();toast('تم المسح');
 }
 
-/* ============ PWA ============ */
+/* ============ PWA — تثبيت حقيقي كتطبيق ============ */
 let deferredPrompt=null;
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
-async function installApp(){if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;}else toast('للتثبيت: من قائمة المتصفح اختر «تثبيت التطبيق» أو «إضافة للشاشة الرئيسية»');}
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();deferredPrompt=e;
+  // إظهار زر تثبيت عائم عند توفر إمكانية التثبيت
+  const b=document.getElementById('installFab');if(b)b.style.display='flex';
+});
+window.addEventListener('appinstalled',()=>{
+  deferredPrompt=null;
+  const b=document.getElementById('installFab');if(b)b.style.display='none';
+  toast('✅ تم تثبيت التطبيق');
+});
+function isStandalone(){
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true;
+}
+async function installApp(){
+  if(isStandalone()){toast('التطبيق مُثبّت ويعمل بالفعل');return;}
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    const r=await deferredPrompt.userChoice;
+    deferredPrompt=null;
+    if(r&&r.outcome==='accepted')toast('✅ جارٍ التثبيت...');
+    return;
+  }
+  // iOS / متصفحات لا تدعم المطالبة التلقائية
+  const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  if(ios){
+    openModal(`<div class="modal-head"><h3>📲 تثبيت على آيفون</h3><button class="icon-btn" onclick="closeModal()">✕</button></div>
+      <p>على آيفون (Safari): اضغط زر المشاركة <b>⬆️</b> ثم اختر <b>«إضافة إلى الشاشة الرئيسية»</b>. سيُثبَّت كتطبيق باسم «الميرة».</p>`);
+  }else{
+    openModal(`<div class="modal-head"><h3>📲 تثبيت التطبيق</h3><button class="icon-btn" onclick="closeModal()">✕</button></div>
+      <p>إذا لم يظهر طلب التثبيت تلقائياً: افتح قائمة المتصفح (⋮) واختر <b>«تثبيت التطبيق»</b> أو <b>«Install app»</b>. يجب فتح الموقع عبر <b>https</b> (مثل Vercel) ليعمل التثبيت الحقيقي.</p>`);
+  }
+}
+// تسجيل service worker حقيقي من ملف منفصل (يعمل عند الرفع على https)
 if('serviceWorker' in navigator){
-  const sw=`self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>self.clients.claim());self.addEventListener('fetch',e=>{e.respondWith(caches.open('meera-v1').then(async c=>{const cached=await c.match(e.request);if(cached)return cached;try{const res=await fetch(e.request);if(e.request.method==='GET')c.put(e.request,res.clone());return res;}catch(err){return cached||new Response('offline');}}));});`;
-  navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'text/javascript'}))).catch(()=>{});
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('./sw.js').catch(err=>console.warn('SW:',err));
+  });
 }
 
 /* ============ معالج أخطاء عام ============ */
@@ -1536,17 +1577,17 @@ function officialReceiptHTML(data,forPrint){
   const toLine=`الرتبة / ${esc(data.toRank||'')} — الاسم / ${esc(data.to)} — المنصب / ${esc(data.toRole||'')}`;
   return `<div class="offrec">
     <div class="off-head">
-      <div class="off-left">
-        <div>العدد /</div>
-        <div>التاريخ /&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;٢٠٢</div>
-      </div>
-      <div class="off-logo"><img src="${LOGO_SRC}"></div>
-      <div class="off-right">
+      <div class="off-ministry">
         <div>وزارة الداخلية</div>
         <div>مكتب الوزير</div>
         <div>مديرية الأحوال المدنية والجوازات والإقامة العامة</div>
         <div>مديرية الأحوال المدنية والجوازات والإقامة / ذي قار</div>
         <div>قسم الشؤون الإدارية والمالية / شعبة الميرة</div>
+      </div>
+      <div class="off-logo"><img src="${LOGO_SRC}"></div>
+      <div class="off-num">
+        <div>العدد /</div>
+        <div>التاريخ /&nbsp;&nbsp;/&nbsp;&nbsp;/&nbsp;&nbsp;٢٠٢</div>
       </div>
     </div>
     <div class="off-title">م / وصل استلام وتسليم</div>
@@ -1596,23 +1637,23 @@ function printOfficialReceipt(data){
   <style>
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
-    body{font-family:'Segoe UI',Tahoma,sans-serif;color:#000;font-size:16px}
-    .offrec{padding:12mm 14mm;font-size:16px}
-    .off-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-    .off-right{font-size:16px;line-height:1.8;font-weight:700;text-align:right;flex:1}
-    .off-left{font-size:16px;line-height:1.8;text-align:left;white-space:nowrap}
-    .off-logo{flex:1;display:flex;justify-content:flex-start;padding-right:4%}
-    .off-logo img{width:90px;height:90px;object-fit:contain}
-    .off-title{text-align:center;font-weight:800;font-size:18px;margin:12px 0 8px;text-decoration:underline}
-    .off-parties{font-size:15px;line-height:1.85;margin:6px 0 8px;border:1px solid #bbb;border-radius:6px;padding:7px 11px;background:#fafafa}
-    .off-intro{font-size:15px;margin:6px 0 10px;line-height:1.8;font-weight:600}
+    body{font-family:'Segoe UI',Tahoma,sans-serif;color:#000;font-size:14px}
+    .offrec{padding:12mm 12mm;font-size:14px}
+    .off-head{display:grid;grid-template-columns:1fr auto 1.35fr;align-items:flex-start;gap:6px;direction:ltr}
+    .off-ministry{font-size:14px;line-height:1.85;font-weight:700;text-align:left;white-space:nowrap;direction:rtl;grid-column:3}
+    .off-num{font-size:14px;line-height:1.85;text-align:left;white-space:nowrap;font-weight:700;direction:rtl;grid-column:1}
+    .off-logo{display:flex;justify-content:center;align-items:flex-start;padding-top:6px;grid-column:2}
+    .off-logo img{width:88px;height:88px;object-fit:contain}
+    .off-title{text-align:center;font-weight:800;font-size:17px;margin:14px 0 8px;text-decoration:underline}
+    .off-parties{font-size:14px;line-height:1.9;margin:6px 0 8px;border:1px solid #bbb;border-radius:6px;padding:7px 11px;background:#fafafa}
+    .off-intro{font-size:14px;margin:6px 0 10px;line-height:1.8;font-weight:600}
     .off-table{width:100%;border-collapse:collapse;font-size:14px}
     .off-table th,.off-table td{border:1px solid #000;padding:7px;text-align:right;height:30px}
     .off-table th{text-align:center;font-weight:800;font-size:14px}
-    .off-signdate{text-align:center;font-size:15px;font-weight:700;margin:16px 0 8px}
-    .off-sign{display:flex;justify-content:space-between;padding-top:22px;font-size:15px;line-height:1.95}
-    .sign-col{width:30%}
-    .sign-t{font-weight:800;margin-bottom:6px;font-size:16px}
+    .off-signdate{text-align:center;font-size:14px;font-weight:700;margin:14px 0 8px}
+    .off-sign{display:flex;justify-content:space-between;margin-top:70px;font-size:14px;line-height:2}
+    .sign-col{width:31%}
+    .sign-t{font-weight:800;margin-bottom:8px;font-size:15px}
     @media print{@page{size:A4;margin:0}.off-table{page-break-inside:auto}.off-sign{page-break-inside:avoid}}
   </style></head><body>${officialReceiptHTML(data,true)}</body></html>`);
   w.document.close();setTimeout(()=>{w.focus();w.print();},500);
