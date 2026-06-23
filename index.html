@@ -208,10 +208,11 @@ hr.sep{border:none;border-top:1px solid rgba(120,150,200,0.2);margin:14px 0}
 .fp-logo{width:38px;height:38px;border-radius:10px;object-fit:contain;background:#fff;padding:2px;flex:none}
 /* معاينة الوصل الرسمي داخل التطبيق */
 .offrec{background:#fff;color:#000;padding:16px;border-radius:10px;font-size:14px}
-.offrec .off-head{display:grid;grid-template-columns:1fr auto 1.35fr;align-items:flex-start;gap:6px;direction:ltr}
-.offrec .off-ministry{font-size:14px;line-height:1.85;font-weight:700;text-align:left;white-space:nowrap;direction:rtl;grid-column:3}
-.offrec .off-num{font-size:14px;line-height:1.85;text-align:left;white-space:nowrap;font-weight:700;direction:rtl;grid-column:1}
-.offrec .off-logo{display:flex;justify-content:center;align-items:flex-start;padding-top:6px;grid-column:2}
+.offrec .off-head{position:relative;min-height:96px}
+.offrec .off-ministry{position:absolute;top:0;left:0;font-size:14px;line-height:1.85;font-weight:700;text-align:right;white-space:nowrap}
+
+.offrec .off-num{position:absolute;top:0;right:0;font-size:14px;line-height:1.85;text-align:right;white-space:nowrap;font-weight:700}
+.offrec .off-logo{position:absolute;top:0;left:50%;transform:translateX(-50%)}
 .offrec .off-logo img{width:74px;height:74px;object-fit:contain}
 .offrec .off-title{text-align:center;font-weight:800;font-size:16px;margin:14px 0 8px;text-decoration:underline}
 .offrec .off-parties{font-size:14px;line-height:1.9;margin:6px 0;border:1px solid #ccc;border-radius:6px;padding:8px;background:#f7f9fc}
@@ -1572,7 +1573,7 @@ function officialReceiptHTML(data,forPrint){
     <td style="text-align:center">${it.qty}</td>
     <td></td></tr>`).join('');
   let extra='';
-  for(let i=data.items.length;i<4;i++)extra+=`<tr><td style="text-align:center">${i+1}</td><td></td><td></td><td></td></tr>`;
+  // لا صفوف فارغة: الجدول ينشأ بعدد المواد المنقولة فقط
   const fromLine=`الرتبة / ${esc(data.fromRank||'')} — الاسم / ${esc(data.from)} — المنصب / ${esc(data.fromRole||'')}`;
   const toLine=`الرتبة / ${esc(data.toRank||'')} — الاسم / ${esc(data.to)} — المنصب / ${esc(data.toRole||'')}`;
   return `<div class="offrec">
@@ -1639,10 +1640,10 @@ function printOfficialReceipt(data){
     html,body{margin:0;padding:0}
     body{font-family:'Segoe UI',Tahoma,sans-serif;color:#000;font-size:14px}
     .offrec{padding:12mm 12mm;font-size:14px}
-    .off-head{display:grid;grid-template-columns:1fr auto 1.35fr;align-items:flex-start;gap:6px;direction:ltr}
-    .off-ministry{font-size:14px;line-height:1.85;font-weight:700;text-align:left;white-space:nowrap;direction:rtl;grid-column:3}
-    .off-num{font-size:14px;line-height:1.85;text-align:left;white-space:nowrap;font-weight:700;direction:rtl;grid-column:1}
-    .off-logo{display:flex;justify-content:center;align-items:flex-start;padding-top:6px;grid-column:2}
+    .off-head{position:relative;min-height:96px}
+    .off-ministry{position:absolute;top:0;left:0;font-size:14px;line-height:1.85;font-weight:700;text-align:right;white-space:nowrap}
+    .off-num{position:absolute;top:0;right:0;font-size:14px;line-height:1.85;text-align:right;white-space:nowrap;font-weight:700}
+    .off-logo{position:absolute;top:0;left:50%;transform:translateX(-50%)}
     .off-logo img{width:88px;height:88px;object-fit:contain}
     .off-title{text-align:center;font-weight:800;font-size:17px;margin:14px 0 8px;text-decoration:underline}
     .off-parties{font-size:14px;line-height:1.9;margin:6px 0 8px;border:1px solid #bbb;border-radius:6px;padding:7px 11px;background:#fafafa}
