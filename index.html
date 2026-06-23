@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#e8f0fe">
+<title>شعبة الميرة - قسم جوازات الناصرية</title>
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi2LTYudio2Kkg2KfZhNmF2YrYsdipIiwic2hvcnRfbmFtZSI6Itin2YTZhdmK2LHYqSIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjZThmMGZlIiwidGhlbWVfY29sb3IiOiIjZThmMGZlIiwiaWNvbnMiOlt7InNyYyI6Imljb24ucG5nIiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3BuZyJ9XX0=">
+<style>
+:root{
+  --bg1:#eef4ff; --bg2:#e3ecfb; --bg3:#f3f7ff;
+  --glass:rgba(255,255,255,0.55);
+  --glass2:rgba(255,255,255,0.72);
+  --border:rgba(255,255,255,0.8);
+  --shadow:rgba(60,90,160,0.18);
+  --txt:#1c2c4a; --muted:#5a6b8c;
+  --pri:#3b6fd6; --pri2:#5a8af0;
+  --ok:#23a06a; --warn:#d98a1f; --dng:#d65151;
+  --chip:#dfe9fc;
+  --radius:18px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:"Segoe UI","Tahoma",sans-serif;
+  color:var(--txt);
+  background:linear-gradient(135deg,var(--bg1),var(--bg2) 45%,var(--bg3));
+  background-attachment:fixed;
+  min-height:100vh;
+  font-size:15px;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(900px 500px at 85% -5%,rgba(120,160,255,0.25),transparent 60%),
+    radial-gradient(700px 500px at 5% 105%,rgba(140,200,255,0.22),transparent 60%);
+}
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  border:1px solid var(--border);
+  box-shadow:0 8px 30px var(--shadow);
+  border-radius:var(--radius);
+}
+header.appbar{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;margin:10px;
+}
+.logo{
+  width:46px;height:46px;border-radius:14px;flex:none;
+  background:linear-gradient(135deg,var(--pri),var(--pri2));
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:800;font-size:20px;
+  box-shadow:0 6px 16px rgba(59,111,214,0.4);
+}
+.appbar h1{font-size:17px;margin:0;line-height:1.3}
+.appbar .sub{font-size:11px;color:var(--muted);font-weight:600}
+.appbar .spacer{flex:1}
+.icon-btn{
+  border:none;cursor:pointer;font-size:18px;
+  width:42px;height:42px;border-radius:12px;
+  background:var(--glass2);color:var(--pri);
+  display:flex;align-items:center;justify-content:center;
+  transition:.15s;
+}
+.icon-btn:active{transform:scale(.92)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 10px 110px}
+.card{padding:16px;margin:12px 0}
+h2.sec{font-size:16px;margin:4px 0 14px;display:flex;align-items:center;gap:8px}
+h2.sec .ic{font-size:20px}
+label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:10px 2px 5px}
+input,select,textarea{
+  width:100%;padding:11px 13px;border-radius:12px;font-size:14px;font-family:inherit;
+  border:1px solid rgba(120,150,200,0.3);
+  background:rgba(255,255,255,0.7);color:var(--txt);
+  transition:.15s;
+}
+input:focus,select:focus,textarea:focus{
+  outline:none;border-color:var(--pri);
+  box-shadow:0 0 0 3px rgba(59,111,214,0.15);
+  background:#fff;
+}
+.row{display:grid;gap:10px}
+.row.c2{grid-template-columns:1fr 1fr}
+.row.c3{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:640px){.row.c2,.row.c3{grid-template-columns:1fr}}
+.btn{
+  border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;
+  padding:11px 18px;border-radius:12px;transition:.15s;
+  display:inline-flex;align-items:center;gap:7px;justify-content:center;
+}
+.btn:active{transform:scale(.96)}
+.btn.pri{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;box-shadow:0 5px 14px rgba(59,111,214,0.35)}
+.btn.ok{background:linear-gradient(135deg,#23a06a,#2bbd7e);color:#fff}
+.btn.gray{background:var(--glass2);color:var(--txt)}
+.btn.dng{background:linear-gradient(135deg,#d65151,#e57373);color:#fff}
+.btn.sm{padding:7px 12px;font-size:12px;border-radius:10px}
+.btn.full{width:100%}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px 10px;text-align:right;border-bottom:1px solid rgba(120,150,200,0.18)}
+th{color:var(--muted);font-size:11px;font-weight:800;background:rgba(255,255,255,0.4)}
+tr:hover td{background:rgba(255,255,255,0.45)}
+.table-wrap{overflow-x:auto;border-radius:12px}
+.chip{display:inline-block;background:var(--chip);color:var(--pri);border-radius:20px;padding:3px 11px;font-size:11px;font-weight:700;margin:2px}
+.badge{background:var(--pri);color:#fff;border-radius:20px;padding:2px 9px;font-size:11px;font-weight:800}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:6px}
+.person-card{
+  padding:14px;cursor:pointer;text-align:center;transition:.15s;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.person-card:active{transform:scale(.97)}
+.avatar{
+  width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,var(--pri),var(--pri2));
+  color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;
+}
+.person-card .nm{font-weight:700;font-size:13px}
+.person-card .ct{font-size:11px;color:var(--muted)}
+.empty{text-align:center;color:var(--muted);padding:26px;font-size:13px}
+.thumb{width:42px;height:42px;border-radius:8px;object-fit:cover;cursor:pointer;border:1px solid var(--border)}
+.thumbs{display:flex;gap:5px;flex-wrap:wrap}
+/* bottom nav */
+nav.tabbar{
+  position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
+  display:flex;gap:4px;padding:6px;z-index:60;width:calc(100% - 24px);max-width:560px;justify-content:space-between;
+}
+nav.tabbar button{
+  flex:1;border:none;background:transparent;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:7px 2px;border-radius:12px;color:var(--muted);font-size:10px;font-weight:700;font-family:inherit;transition:.15s;
+}
+nav.tabbar button .ti{font-size:19px}
+nav.tabbar button.active{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff}
+.view{display:none}
+.view.active{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* modal */
+.modal-bg{
+  position:fixed;inset:0;z-index:100;background:rgba(40,60,100,0.35);
+  backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:14px;
+}
+.modal-bg.show{display:flex;animation:fade .2s}
+.modal{max-width:560px;width:100%;max-height:90vh;overflow:auto;padding:18px}
+.modal h3{margin:0 0 12px;font-size:16px}
+.close-x{position:absolute;left:14px;top:14px}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.imgview{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px}
+.imgview.show{display:flex}
+.imgview img{max-width:100%;max-height:100%;border-radius:10px}
+.toast{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  background:var(--txt);color:#fff;padding:11px 20px;border-radius:30px;
+  font-size:13px;font-weight:700;z-index:200;opacity:0;pointer-events:none;transition:.3s;
+}
+.toast.show{opacity:1;bottom:90px}
+.search-box{position:relative}
+.search-box .si{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.search-box input{padding-right:38px}
+.tag-sel{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.tag-sel .chip{cursor:pointer;background:rgba(255,255,255,0.6)}
+.tag-sel .chip.on{background:var(--pri);color:#fff}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:10px 0}
+.stat{padding:14px;text-align:center}
+.stat .v{font-size:24px;font-weight:800;color:var(--pri)}
+.stat .l{font-size:11px;color:var(--muted);font-weight:700;margin-top:3px}
+.photo-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.photo-prev{width:64px;height:64px;border-radius:10px;object-fit:cover;position:relative;border:1px solid var(--border)}
+.photo-wrap{position:relative}
+.photo-wrap .del{position:absolute;top:-6px;left:-6px;background:var(--dng);color:#fff;border-radius:50%;width:20px;height:20px;border:none;cursor:pointer;font-size:12px;line-height:1}
+details.acc{margin:8px 0;border-radius:12px;overflow:hidden}
+details.acc summary{padding:11px 14px;cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.acc summary::-webkit-details-marker{display:none}
+.muted{color:var(--muted)}
+.section-pill{display:inline-flex;align-items:center;gap:6px;background:var(--glass2);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;margin:3px;cursor:pointer;border:1px solid var(--border)}
+.section-pill.on{background:var(--pri);color:#fff}
+hr.sep{border:none;border-top:1px solid rgba(120,150,200,0.2);margin:14px 0}
+@media print{
+  body{background:#fff}
+  body::before,header.appbar,nav.tabbar,.tabbar,.btn-row,.icon-btn,.no-print{display:none!important}
+  .glass{box-shadow:none;border:1px solid #ccc;backdrop-filter:none;background:#fff}
+  .view{display:none!important}
+}
+.print-area{display:none}
+@media print{.print-area{display:block!important}}
+</style>
+</head>
+
+<body>
+<header class="appbar glass">
+  <div class="logo">م</div>
+  <div>
+    <h1>شعبة الميرة</h1>
+    <div class="sub">قسم جوازات الناصرية — إدارة المخزن</div>
+  </div>
+  <div class="spacer"></div>
+  <button class="icon-btn" onclick="openSettings()" title="الإعدادات">⚙️</button>
+</header>
+
+<div class="wrap">
+
+<!-- ============ الرئيسية: المواد ============ -->
+<section id="v-home" class="view active">
+  <div class="card glass">
+    <h2 class="sec"><span class="ic">📊</span> لوحة المعلومات</h2>
+    <div class="stat-grid">
+      <div class="stat glass"><div class="v" id="st-items">0</div><div class="l">أنواع المواد</div></div>
+      <div class="stat glass"><div class="v" id="st-people">0</div><div class="l">الأشخاص</div></div>
+      <div class="stat glass"><div class="v" id="st-out">0</div><div class="l">عمليات إخراج</div></div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat glass"><div class="v" id="st-instock">0</div><div class="l">رصيد بالمخزن</div></div>
+      <div class="stat glass"><div class="v" id="st-trans">0</div><div class="l">مناقلات</div></div>
+      <div class="stat glass"><div class="v" id="st-cons">0</div><div class="l">مستهلكة</div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn pri" onclick="go('store')">➕ إدخال مخزني</button>
+      <button class="btn ok" onclick="go('out')">📤 إخراج مخزني</button>
+    </div>
+  </div>
+
+  <div class="card glass">
+    <h2 class="sec"><span class="ic">🏷️</span> إدارة المواد (إضافة مادة جديدة)</h2>
+    <div class="row c2">
+      <input id="newItemName" placeholder="اسم مادة جديدة...">
+      <button class="btn pri" onclick="addNewItem()">إضافة مادة</button>
+    </div>
+    <details class="acc glass" style="margin-top:12px">
+      <summary>عرض كل المواد المعرّفة <span class="badge" id="allItemsCount">0</span></summary>
+      <div id="knownItemsList" style="padding:10px"></div>
+    </details>
+  </div>
+
+  <div class="card glass">
+    <h2 class="sec"><span class="ic">🗂️</span> المواد في المخزن</h2>
+    <div class="search-box">
+      <span class="si">🔍</span>
+      <input id="homeItemSearch" placeholder="بحث عن مادة..." oninput="renderItemsHome()">
+    </div>
+    <div id="itemsHomeList" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<!-- ============ إدخال مخزني ============ -->
+<section id="v-store" class="view">
+  <div class="card glass">
+    <h2 class="sec"><span class="ic">➕</span> إدخال مخزني (إضافة وجبة)</h2>
+    <label>اسم المادة</label>
+    <input id="in_item" list="itemsList" placeholder="اختر أو اكتب اسم المادة">
+    <datalist id="itemsList"></datalist>
+    <div class="row c2">
+      <div><label>الوحدة</label><input id="in_unit" placeholder="عدد / متر / علبة..."></div>
+      <div><label>العدد (الوجبة)</label><input id="in_qty" type="number" value="1" min="1"></div>
+    </div>
+    <label>المستلم (الشخص الذي استلم الوجبة للمخزن)</label>
+    <input id="in_receiver" list="peopleList" placeholder="اسم المستلم">
+    <datalist id="peopleList"></datalist>
+    <div class="row c2">
+      <div><label>رقم المستند</label><input id="in_doc" placeholder="رقم المستند / الوصل"></div>
+      <div><label>تاريخ المستند</label><input id="in_date" type="date"></div>
+    </div>
+    <label>ملاحظات</label>
+    <textarea id="in_notes" rows="2" placeholder="اختياري"></textarea>
+    <label>الصور</label>
+    <div class="photo-row" id="in_photos"></div>
+    <div class="btn-row">
+      <button class="btn gray sm" onclick="pickPhoto('in_photos',false)">🖼️ من الاستوديو</button>
+      <button class="btn gray sm" onclick="pickPhoto('in_photos',true)">📷 التقاط صورة</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn pri full" onclick="saveStore()">💾 حفظ الوجبة (إدخال مخزني)</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ إخراج مخزني ============ -->
+<section id="v-out" class="view">
+  <div class="card glass">
+    <h2 class="sec"><span class="ic">📤</span> إخراج مخزني (تسليم لشخص)</h2>
+    <label>اختر المادة من المخزن</label>
+    <select id="out_item_sel" onchange="onPickStockItem()"><option value="">— اختر مادة —</option></select>
+    <div id="out_stock_info" class="no-print"></div>
+    <div class="row c2">
+      <div><label>العدد المراد إخراجه</label><input id="out_qty" type="number" value="1" min="1"></div>
+      <div><label>الوحدة</label><input id="out_unit" readonly></div>
+    </div>
+    <label>اسم الشخص المُخرَج له (موظف / منتسب / ضابط)</label>
+    <input id="out_person" list="peopleList" placeholder="اسم الشخص">
+    <label>الصفة</label>
+    <select id="out_role"><option>منتسب</option><option>موظف</option><option>ضابط</option></select>
+    <div class="row c2">
+      <div><label>رقم المستند / الوصل</label><input id="out_doc" placeholder="رقم الوصل"></div>
+      <div><label>تاريخ التسليم</label><input id="out_date" type="date"></div>
+    </div>
+    <label>ملاحظات</label>
+    <textarea id="out_notes" rows="2" placeholder="اختياري"></textarea>
+    <label>الصور</label>
+    <div class="photo-row" id="out_photos"></div>
+    <div class="btn-row">
+      <button class="btn gray sm" onclick="pickPhoto('out_photos',false)">🖼️ من الاستوديو</button>
+      <button class="btn gray sm" onclick="pickPhoto('out_photos',true)">📷 التقاط صورة</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn ok full" onclick="saveOut()">📤 حفظ الإخراج المخزني</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ البحث ============ -->
+<section id="v-search" class="view">
+  <div class="card glass">
+    <h2 class="sec"><span class="ic">🔍</span> البحث</h2>
+    <div class="tag-sel" style="margin-bottom:10px">
+      <span class="chip on" id="sm-item" onclick="setSearchMode('item')">بحث عن مادة</span>
+      <span class="chip" id="sm-person" onclick="setSearchMode('person')">بحث عن شخص</span>
+    </div>
+    <div class="search-box">
+      <span class="si">🔍</span>
+      <input id="searchInput" placeholder="اكتب اسم المادة..." oninput="runSearch()">
+    </div>
+  </div>
+  <div id="searchResults"></div>
+</section>
+
+<!-- ============ الأشخاص ============ -->
+<section id="v-people" class="view">
+  <div class="card glass">
+    <h2 class="sec"><span class="ic">👥</span> الأشخاص</h2>
+    <div class="search-box">
+      <span class="si">🔍</span>
+      <input id="peopleSearch" placeholder="بحث عن شخص..." oninput="renderPeople()">
+    </div>
+    <div class="grid-cards" id="peopleGrid"></div>
+  </div>
+</section>
+
+<!-- ============ المناقلات ============ -->
+<section id="v-trans" class="view">
+  <div class="card glass">
+    <h2 class="sec"><span class="ic">🔄</span> المناقلات</h2>
+    <div class="search-box">
+      <span class="si">🔍</span>
+      <input id="transSearch" placeholder="بحث باسم شخص أو مادة..." oninput="renderTransfers()">
+    </div>
+    <div id="transList" style="margin-top:10px"></div>
+  </div>
+</section>
+
+<!-- ============ المستهلك ============ -->
+<section id="v-cons" class="view">
+  <div class="card glass">
+    <h2 class="sec"><span class="ic">📦</span> قسم المستهلك</h2>
+    <div class="tag-sel" style="margin-bottom:10px">
+      <span class="chip on" id="cm-due" onclick="setConsMode('due')">مستحقة الاستهلاك</span>
+      <span class="chip" id="cm-done" onclick="setConsMode('done')">تم استهلاكها</span>
+      <span class="chip" id="cm-avail" onclick="setConsMode('avail')">موجودة حالياً</span>
+    </div>
+    <button class="btn pri sm" onclick="openConsAdd()">➕ إضافة مادة مستهلك</button>
+    <div id="consList" style="margin-top:12px"></div>
+  </div>
+</section>
+
+</div>
+
+<nav class="tabbar glass">
+  <button data-tab="home" class="active" onclick="go('home')"><span class="ti">🏠</span>المواد</button>
+  <button data-tab="search" onclick="go('search')"><span class="ti">🔍</span>بحث</button>
+  <button data-tab="people" onclick="go('people')"><span class="ti">👥</span>الأشخاص</button>
+  <button data-tab="trans" onclick="go('trans')"><span class="ti">🔄</span>مناقلات</button>
+  <button data-tab="cons" onclick="go('cons')"><span class="ti">📦</span>مستهلك</button>
+</nav>
+
+<div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
+  <div class="modal glass" id="modalBox"></div>
+</div>
+<div class="imgview" id="imgView" onclick="this.classList.remove('show')"><img id="imgViewImg"></div>
+<div class="toast" id="toast"></div>
+<input type="file" id="fileInput" accept="image/*" style="display:none">
+<input type="file" id="fileInputCam" accept="image/*" capture="environment" style="display:none">
+
+<script>
+/* ============ IndexedDB ============ */
+const DB_NAME='meera_db', DB_VER=2;
+const STORES=['stockins','outs','transfers','consumables','people','knownitems','photos','meta'];
+let db;
+function openDB(){
+  return new Promise((res,rej)=>{
+    const r=indexedDB.open(DB_NAME,DB_VER);
+    r.onupgradeneeded=e=>{const d=e.target.result;STORES.forEach(s=>{if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:'id'});});};
+    r.onsuccess=e=>{db=e.target.result;res(db)};
+    r.onerror=e=>rej(e);
+  });
+}
+function tx(s,m='readonly'){return db.transaction(s,m).objectStore(s);}
+function dbAll(s){return new Promise((res,rej)=>{const r=tx(s).getAll();r.onsuccess=()=>res(r.result);r.onerror=rej;});}
+function dbGet(s,id){return new Promise((res,rej)=>{const r=tx(s).get(id);r.onsuccess=()=>res(r.result);r.onerror=rej;});}
+function dbPut(s,o){return new Promise((res,rej)=>{const r=tx(s,'readwrite').put(o);r.onsuccess=()=>res(o);r.onerror=rej;});}
+function dbDel(s,id){return new Promise((res,rej)=>{const r=tx(s,'readwrite').delete(id);r.onsuccess=()=>res();r.onerror=rej;});}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+
+/* ============ الحالة ============ */
+let CACHE={stockins:[],outs:[],transfers:[],consumables:[],people:[],knownitems:[]};
+let DEFAULT_ITEMS=`كرسي دوار
+كرسي مداوله
+كرسي ستول
+كرسي معاقين
+مسطبة جلوس
+ميز كتابه
+ميز حاسبه
+ديلاب حديث
+ركن حديث
+مروحة بأنواعها
+سبلت جداري
+سبلت عمودي
+مكيف هواء
+تلفزيون بأنواعه
+ستلايت بأنواعه
+حاسبة لاب توب
+حاسبة منضدية
+جهاز حمايه (ups)
+سماعات حاسبة
+لوحة مفاتيح
+ماوس ضوئي
+جهاز اسكنر
+جهاز أستنساخ
+طابعة جوازات
+طابعة ليزرية
+جهاز قارئ بصمه
+جهاز قارئ شفره
+جهاز قارئ جوده
+جهاز قارئ بطاقة
+جهاز كابس حراري
+منظومة أنترنت
+جهاز هاتف أرضي
+ثلاجة كهربائية
+حاوية سهملات
+صيدلية ألمنيوم
+مطفأة هرائق
+سيرفر مع ملحقاته
+مستلم رسيفر
+مدفأة كهربائية
+جهاز مسودم
+جهاز (uBox)
+لوحة بصمة
+لوحة أعلانات
+كاميرا مراقبة
+كاميرا التقاط
+مكبر صوت
+صحن (Dish)
+صحن (1.8-usA)
+(BUC)
+محولة كهربائية
+كيبل بأنواعة
+بطارية بأنواعها
+(Router Bord AH433)
+حقيبة أدوات
+بورد وايربين كارت
+قيد هسورن
+سويج وطوتر سينكو سويج
+(LNB/NJR27544)
+جهاز جدار نظري
+جهاز موجه أشاره
+جهاز مقسم أشاره
+مشرفة هواء
+قائمة شبكية
+ملحقم قنيات
+كرفان ألمنيوم (4x6)`.split('\n').map(s=>s.trim()).filter(Boolean);
+
+async function loadAll(){
+  for(const s of ['stockins','outs','transfers','consumables','people','knownitems']) CACHE[s]=await dbAll(s);
+}
+
+/* ============ المواد المعروفة (قابلة للإضافة يدوياً) ============ */
+async function addKnownItem(name){
+  name=(name||'').trim();if(!name)return;
+  if(CACHE.knownitems.some(k=>k.name===name)||DEFAULT_ITEMS.includes(name))return;
+  const o={id:uid(),name,created:Date.now()};
+  await dbPut('knownitems',o);CACHE.knownitems.push(o);
+}
+async function delKnownItem(id){
+  await dbDel('knownitems',id);CACHE.knownitems=CACHE.knownitems.filter(k=>k.id!==id);
+}
+
+/* ============ منطق المخزون ============ */
+// أسماء كل المواد المعروفة (الافتراضية + المضافة يدوياً + المُدخلة)
+function allItemNames(){
+  return [...new Set([...DEFAULT_ITEMS, ...CACHE.knownitems.map(k=>k.name), ...CACHE.stockins.map(s=>s.name)])];
+}
+// أسماء المواد التي لها إدخال فعلي بالمخزن
+function stockedItemNames(){
+  return [...new Set(CACHE.stockins.map(s=>s.name))].sort((a,b)=>a.localeCompare(b,'ar'));
+}
+// إجمالي المُدخَل لمادة
+function totalIn(name){return CACHE.stockins.filter(s=>s.name===name).reduce((a,s)=>a+(+s.qty||0),0);}
+// إجمالي المُخرَج لمادة
+function totalOut(name){return CACHE.outs.filter(o=>o.name===name).reduce((a,o)=>a+(+o.qty||0),0);}
+// الرصيد المتاح بالمخزن لمادة
+function available(name){return totalIn(name)-totalOut(name);}
+// وحدة المادة (من آخر إدخال)
+function unitOf(name){const arr=CACHE.stockins.filter(s=>s.name===name);return arr.length?arr[arr.length-1].unit:'';}
+
+/* ============ تنقّل ============ */
+function go(tab){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const el=document.getElementById('v-'+tab);if(el)el.classList.add('active');
+  document.querySelectorAll('nav.tabbar button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(tab==='home')renderHome();
+  if(tab==='people')renderPeople();
+  if(tab==='trans')renderTransfers();
+  if(tab==='cons')renderCons();
+  if(tab==='store')fillSelects();
+  if(tab==='out'){fillSelects();fillStockSelect();}
+  if(tab==='search')runSearch();
+}
+
+/* ============ أدوات واجهة ============ */
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200);}
+function esc(s){return (s==null?'':String(s)).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function openModal(h){document.getElementById('modalBox').innerHTML=h;document.getElementById('modalBg').classList.add('show');}
+function closeModal(){document.getElementById('modalBg').classList.remove('show');}
+function showImg(src){document.getElementById('imgViewImg').src=src;document.getElementById('imgView').classList.add('show');}
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+
+/* ============ الصور ============ */
+let photoBuffers={};
+function pickPhoto(targetId,camera){
+  const inp=document.getElementById(camera?'fileInputCam':'fileInput');
+  inp.value='';
+  inp.onchange=async()=>{const f=inp.files[0];if(!f)return;const d=await compressImg(f);(photoBuffers[targetId]=photoBuffers[targetId]||[]).push(d);renderPhotoBuffer(targetId);};
+  inp.click();
+}
+function compressImg(file){
+  return new Promise(res=>{
+    const img=new Image(),rd=new FileReader();
+    rd.onload=()=>{img.onload=()=>{let w=img.width,h=img.height;const max=1100;if(w>max||h>max){const r=Math.min(max/w,max/h);w*=r;h*=r;}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',0.72));};img.src=rd.result;};
+    rd.readAsDataURL(file);
+  });
+}
+function renderPhotoBuffer(targetId){
+  const box=document.getElementById(targetId);const arr=photoBuffers[targetId]||[];
+  box.innerHTML=arr.map((src,i)=>`<div class="photo-wrap"><img class="photo-prev" src="${src}"><button class="del" onclick="rmPhoto('${targetId}',${i})">×</button></div>`).join('');
+  box.querySelectorAll('img').forEach((im,i)=>im.onclick=()=>showImg(arr[i]));
+}
+function rmPhoto(t,i){photoBuffers[t].splice(i,1);renderPhotoBuffer(t);}
+async function savePhotos(arr){const ids=[];for(const src of(arr||[])){const id=uid();await dbPut('photos',{id,src});ids.push(id);}return ids;}
+async function loadPhotos(ids){const out=[];for(const id of(ids||[])){const p=await dbGet('photos',id);if(p)out.push({id,src:p.src});}return out;}
+async function thumbsHTML(ids){const ph=await loadPhotos(ids);if(!ph.length)return '<span class="muted">—</span>';return '<div class="thumbs">'+ph.map(p=>`<img class="thumb" src="${p.src}" data-full="${p.id}">`).join('')+'</div>';}
+function bindThumbs(scope){(scope||document).querySelectorAll('.thumb[data-full]').forEach(im=>{im.onclick=async()=>{const p=await dbGet('photos',im.dataset.full);if(p)showImg(p.src);};});}
+</script>
+
+<script>
+/* ============ تعبئة القوائم ============ */
+function fillSelects(){
+  const dl=document.getElementById('itemsList');
+  if(dl)dl.innerHTML=allItemNames().map(n=>`<option value="${esc(n)}">`).join('');
+  const pl=document.getElementById('peopleList');
+  if(pl)pl.innerHTML=CACHE.people.map(p=>`<option value="${esc(p.name)}">`).join('');
+}
+// قائمة المواد المتوفرة بالمخزن (لشاشة الإخراج)
+function fillStockSelect(){
+  const sel=document.getElementById('out_item_sel');
+  const names=stockedItemNames().filter(n=>available(n)>0);
+  sel.innerHTML='<option value="">— اختر مادة —</option>'+names.map(n=>`<option value="${esc(n)}">${esc(n)} (المتاح: ${available(n)})</option>`).join('');
+  onPickStockItem();
+}
+function onPickStockItem(){
+  const name=document.getElementById('out_item_sel').value;
+  const info=document.getElementById('out_stock_info');
+  const unitEl=document.getElementById('out_unit');
+  if(!name){info.innerHTML='';unitEl.value='';return;}
+  const av=available(name);
+  unitEl.value=unitOf(name);
+  info.innerHTML=`<div class="glass" style="padding:9px 12px;margin:6px 0;font-size:12px">
+    إجمالي مُدخَل: <b>${totalIn(name)}</b> • مُخرَج: <b>${totalOut(name)}</b> • <span style="color:var(--ok)">المتاح: <b>${av}</b></span></div>`;
+  document.getElementById('out_qty').max=av;
+}
+
+/* ============ شخص ============ */
+async function ensurePerson(name,role){
+  name=(name||'').trim();if(!name)return null;
+  let p=CACHE.people.find(x=>x.name===name);
+  if(!p){p={id:uid(),name,role:role||'منتسب',created:Date.now()};await dbPut('people',p);CACHE.people.push(p);}
+  else if(role&&p.role!==role){p.role=role;await dbPut('people',p);}
+  return p;
+}
+
+/* ============ إدخال مخزني (وجبة) ============ */
+async function saveStore(){
+ try{
+  const name=document.getElementById('in_item').value.trim();
+  if(!name){toast('اكتب اسم المادة');return;}
+  const receiver=document.getElementById('in_receiver').value.trim();
+  if(receiver)await ensurePerson(receiver);
+  const photoIds=await savePhotos(photoBuffers['in_photos']);
+  const o={id:uid(),name,
+    unit:document.getElementById('in_unit').value.trim(),
+    qty:+document.getElementById('in_qty').value||1,
+    receiver,
+    doc:document.getElementById('in_doc').value.trim(),
+    date:document.getElementById('in_date').value||todayStr(),
+    notes:document.getElementById('in_notes').value.trim(),
+    photos:photoIds,created:Date.now()};
+  await dbPut('stockins',o);CACHE.stockins.push(o);
+  // إضافة اسم المادة لقائمة المواد المعروفة إن كان جديداً
+  await addKnownItem(name);
+  photoBuffers['in_photos']=[];renderPhotoBuffer('in_photos');
+  ['in_item','in_unit','in_receiver','in_doc','in_notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('in_qty').value=1;
+  fillSelects();toast('✅ تم حفظ الوجبة');
+  openRecordView('stockin',o.id);
+ }catch(e){alert('تعذّر الحفظ: '+(e&&e.message?e.message:e));console.error(e);}
+}
+
+/* ============ إخراج مخزني (مرتبط بالإدخال) ============ */
+async function saveOut(){
+ try{
+  const name=document.getElementById('out_item_sel').value;
+  if(!name){toast('اختر مادة من المخزن');return;}
+  const qty=+document.getElementById('out_qty').value||0;
+  if(qty<=0){toast('أدخل عدداً صحيحاً');return;}
+  const av=available(name);
+  if(qty>av){toast('العدد أكبر من المتاح ('+av+')');return;}
+  const person=document.getElementById('out_person').value.trim();
+  if(!person){toast('اكتب اسم الشخص المُخرَج له');return;}
+  const role=document.getElementById('out_role').value;
+  await ensurePerson(person,role);
+  const photoIds=await savePhotos(photoBuffers['out_photos']);
+  const o={id:uid(),name,
+    unit:unitOf(name),
+    qty,person,role,
+    doc:document.getElementById('out_doc').value.trim(),
+    date:document.getElementById('out_date').value||todayStr(),
+    notes:document.getElementById('out_notes').value.trim(),
+    photos:photoIds,created:Date.now()};
+  await dbPut('outs',o);CACHE.outs.push(o);
+  photoBuffers['out_photos']=[];renderPhotoBuffer('out_photos');
+  ['out_person','out_doc','out_notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('out_qty').value=1;
+  fillSelects();fillStockSelect();toast('✅ تم الإخراج لـ '+person);
+  openRecordView('out',o.id);
+ }catch(e){alert('تعذّر الإخراج: '+(e&&e.message?e.message:e));console.error(e);}
+}
+</script>
+
+<script>
+/* ============ بطاقة المادة الكاملة ============ */
+async function itemDetailHTML(name){
+  const ins=CACHE.stockins.filter(s=>s.name===name).sort((a,b)=>a.created-b.created);
+  const outs=CACHE.outs.filter(o=>o.name===name).sort((a,b)=>a.created-b.created);
+  const tIn=totalIn(name),tOut=totalOut(name),av=tIn-tOut;
+  // جدول الوجبات (كل وجبة أمامها زر المخرجات)
+  let inRows='';
+  for(let i=0;i<ins.length;i++){const s=ins[i];
+    inRows+=`<tr>
+      <td>الوجبة ${i+1}</td>
+      <td>${s.qty} ${esc(s.unit||'')}</td>
+      <td>${esc(s.receiver||'-')}</td>
+      <td>${esc(s.date)}</td>
+      <td>${esc(s.doc||'-')}</td>
+      <td>${await thumbsHTML(s.photos)}</td>
+      <td class="no-print"><button class="btn gray sm" onclick="openRecordView('stockin','${s.id}')">عرض</button></td>
+    </tr>`;
+  }
+  if(!inRows)inRows='<tr><td colspan="7" class="empty">لا توجد وجبات إدخال</td></tr>';
+  // جدول المخرجات
+  let outRows='';
+  for(const o of outs){
+    outRows+=`<tr>
+      <td>${esc(o.person)} <span class="muted">(${esc(o.role||'')})</span></td>
+      <td>${o.qty} ${esc(o.unit||'')}</td>
+      <td>${esc(o.date)}</td>
+      <td>${esc(o.doc||'-')}</td>
+      <td>${await thumbsHTML(o.photos)}</td>
+      <td class="no-print"><button class="btn gray sm" onclick="openRecordView('out','${o.id}')">عرض</button></td>
+    </tr>`;
+  }
+  if(!outRows)outRows='<tr><td colspan="6" class="empty">لم يتم إخراج شيء من هذه المادة</td></tr>';
+  return `
+    <div class="stat-grid">
+      <div class="stat glass"><div class="v">${tIn}</div><div class="l">إجمالي مُدخَل</div></div>
+      <div class="stat glass"><div class="v">${tOut}</div><div class="l">مُخرَج</div></div>
+      <div class="stat glass"><div class="v" style="color:var(--ok)">${av}</div><div class="l">المتاح بالمخزن</div></div>
+    </div>
+    <h2 class="sec" style="margin-top:14px"><span class="ic">➕</span> الإدخالات المخزنية لهذه المادة <span class="badge">${ins.length}</span></h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>الوجبة</th><th>العدد</th><th>المستلم</th><th>التاريخ</th><th>رقم المستند/الوصل</th><th>صور</th><th></th></tr></thead>
+      <tbody>${inRows}</tbody></table></div>
+    <details class="acc glass" style="margin-top:12px">
+      <summary>📤 المخرجات من هذه المادة <span class="badge">${outs.length}</span></summary>
+      <div style="padding:8px">
+        <div class="table-wrap"><table>
+          <thead><tr><th>أُخرجت إلى</th><th>العدد المُخرَج</th><th>التاريخ</th><th>رقم المستند/الوصل</th><th>صور</th><th></th></tr></thead>
+          <tbody>${outRows}</tbody></table></div>
+      </div>
+    </details>`;
+}
+async function openItemDetail(name){
+  const html=await itemDetailHTML(name);
+  openModal(`<div class="modal-head"><h3>📦 ${esc(name)}</h3><button class="icon-btn" onclick="closeModal()">✕</button></div>
+    <div id="itemPrint">${html}</div>
+    <div class="btn-row no-print">
+      <button class="btn pri" onclick="printElement('itemPrint','تفاصيل المادة: ${esc(name)}')">🖨️ طباعة / PDF</button>
+      <button class="btn ok" onclick="closeModal();go('store');document.getElementById('in_item').value='${esc(name)}'">➕ إدخال</button>
+      <button class="btn gray" onclick="closeModal();prepOut('${esc(name)}')">📤 إخراج</button>
+    </div>`);
+  bindThumbs(document.getElementById('modalBox'));
+}
+function prepOut(name){go('out');setTimeout(()=>{document.getElementById('out_item_sel').value=name;onPickStockItem();},100);}
+
+/* ============ إدارة المواد يدوياً ============ */
+async function addNewItem(){
+  const inp=document.getElementById('newItemName');
+  const name=inp.value.trim();
+  if(!name)return toast('اكتب اسم المادة');
+  if(allItemNames().includes(name))return toast('المادة موجودة مسبقاً');
+  await addKnownItem(name);
+  inp.value='';fillSelects();renderKnownItems();toast('✅ تمت إضافة المادة');
+}
+function renderKnownItems(){
+  const box=document.getElementById('knownItemsList');
+  if(!box)return;
+  const names=allItemNames().sort((a,b)=>a.localeCompare(b,'ar'));
+  document.getElementById('allItemsCount').textContent=names.length;
+  box.innerHTML=names.map(n=>{
+    const custom=CACHE.knownitems.find(k=>k.name===n);
+    const inStore=CACHE.stockins.some(s=>s.name===n);
+    const delBtn=(custom&&!inStore)?`<button class="btn dng sm" onclick="removeKnownItem('${custom.id}')">حذف</button>`:'';
+    return `<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px;margin:4px 0" class="glass">
+      <span style="font-weight:700;font-size:13px">${esc(n)} ${inStore?'<span class="chip">بالمخزن</span>':''}</span>
+      ${delBtn}</div>`;
+  }).join('');
+}
+async function removeKnownItem(id){
+  if(!confirm('حذف المادة من القائمة؟'))return;
+  await delKnownItem(id);fillSelects();renderKnownItems();toast('تم الحذف');
+}
+
+/* ============ الرئيسية: قائمة المواد ============ */
+function renderItemsHome(){
+  const q=(document.getElementById('homeItemSearch').value||'').trim();
+  let names=stockedItemNames();
+  if(q)names=names.filter(n=>n.includes(q));
+  const box=document.getElementById('itemsHomeList');
+  if(!names.length){box.innerHTML='<div class="empty">لا توجد مواد مُدخَلة بعد. ابدأ بإدخال مخزني.</div>';return;}
+  box.innerHTML=names.map(n=>{
+    const av=available(n),tin=totalIn(n);
+    const inCount=CACHE.stockins.filter(s=>s.name===n).length;
+    return `<div onclick="openItemDetail('${esc(n)}')" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;margin:7px 0;cursor:pointer" class="glass">
+      <div>
+        <div style="font-weight:800;font-size:14px">${esc(n)}</div>
+        <div class="muted" style="font-size:11px">${inCount} وجبة • مُدخَل ${tin} • <span style="color:var(--ok)">المتاح ${av}</span></div>
+      </div>
+      <span class="chip" style="background:${av>0?'var(--chip)':'#f5d5d5'};color:${av>0?'var(--pri)':'var(--dng)'}">${av}</span>
+    </div>`;
+  }).join('');
+}
+</script>
+
+<script>
+/* ============ البحث ============ */
+let searchMode='item';
+function setSearchMode(m){
+  searchMode=m;
+  document.getElementById('sm-item').classList.toggle('on',m==='item');
+  document.getElementById('sm-person').classList.toggle('on',m==='person');
+  document.getElementById('searchInput').placeholder=m==='item'?'اكتب اسم المادة...':'اكتب اسم الشخص...';
+  runSearch();
+}
+async function runSearch(){
+  const q=(document.getElementById('searchInput').value||'').trim();
+  const box=document.getElementById('searchResults');
+  if(searchMode==='item')await searchItem(q,box);
+  else await searchPerson(q,box);
+}
+
+// بحث مادة: تفاصيل كاملة (وجبات + من بحوزته + رصيد)
+async function searchItem(q,box){
+  if(!q){box.innerHTML='<div class="card glass empty">اكتب اسم مادة للبحث</div>';return;}
+  const names=stockedItemNames().filter(n=>n.includes(q));
+  if(!names.length){box.innerHTML='<div class="card glass empty">لا توجد مادة بهذا الاسم</div>';return;}
+  let html='';
+  for(const name of names){
+    const detail=await itemDetailHTML(name);
+    html+=`<div class="card glass" id="srch-${esc(name).replace(/\s/g,'_')}">
+      <h2 class="sec"><span class="ic">📦</span> ${esc(name)}</h2>
+      ${detail}
+      <div class="btn-row no-print"><button class="btn pri sm" onclick="openItemDetail('${esc(name)}')">🖨️ فتح وطباعة</button></div>
+    </div>`;
+  }
+  box.innerHTML=html;bindThumbs(box);
+}
+
+// بحث شخص: فقط المواد المسجلة باسمه بالتفصيل
+async function searchPerson(q,box){
+  if(!q){box.innerHTML='<div class="card glass empty">اكتب اسم شخص للبحث</div>';return;}
+  const people=CACHE.people.filter(p=>p.name.includes(q));
+  if(!people.length){box.innerHTML='<div class="card glass empty">لا يوجد شخص بهذا الاسم</div>';return;}
+  let html='';
+  for(const p of people)html+=await personCardFull(p);
+  box.innerHTML=html;bindThumbs(box);
+}
+
+/* ============ مواد الشخص (مواد فقط) ============ */
+// كل سطر = مادة بحوزته الآن، مع تتبّع المصدر للنقل
+function personItems(name){
+  // مفتاح فريد لكل حركة لتمييز النقل
+  let bag=[]; // {name,qty,unit,date,doc,photos,src,srcId}
+  // المُخرَج له
+  CACHE.outs.filter(o=>o.person===name).forEach(o=>bag.push({name:o.name,qty:o.qty,unit:o.unit,date:o.date,doc:o.doc,photos:o.photos,src:'out',srcId:o.id}));
+  // المنقول إليه
+  CACHE.transfers.filter(t=>t.to===name).forEach(t=>bag.push({name:t.name,qty:t.qty,unit:t.unit||unitOf(t.name),date:t.date,doc:t.doc,photos:t.photos,src:'transfer',srcId:t.id}));
+  // إزالة المنقول منه (حسب اسم المادة والعدد)
+  CACHE.transfers.filter(t=>t.from===name).forEach(t=>{
+    // اطرح العدد المنقول من أول سطر مطابق بالاسم
+    let remaining=t.qty;
+    for(const row of bag){
+      if(row.name===t.name && row.qty>0 && remaining>0){
+        const take=Math.min(row.qty,remaining);row.qty-=take;remaining-=take;
+      }
+    }
+  });
+  return bag.filter(r=>r.qty>0);
+}
+
+async function personCardFull(p){
+  const items=personItems(p.name);
+  let rows='';
+  for(const it of items){
+    rows+=`<tr>
+      <td>${esc(it.name)}</td>
+      <td>${it.qty} ${esc(it.unit||'')}</td>
+      <td>${esc(it.date)}</td>
+      <td>${esc(it.doc||'-')}</td>
+      <td>${it.src==='transfer'?'<span class="chip">منقولة إليه</span>':'<span class="chip">مُستلمة</span>'}</td>
+      <td>${await thumbsHTML(it.photos)}</td>
+      <td class="no-print"><button class="btn ok sm" onclick="openTransfer('${esc(p.name)}','${esc(it.name)}',${it.qty},'${it.unit||''}')">↔ نقل</button></td>
+    </tr>`;
+  }
+  if(!rows)rows='<tr><td colspan="7" class="empty">لا توجد مواد باسمه حالياً</td></tr>';
+  const initial=(p.name.trim()[0]||'؟');
+  return `<div class="card glass" id="person-${p.id}">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+      <div class="avatar">${esc(initial)}</div>
+      <div><div style="font-weight:800;font-size:16px">${esc(p.name)}</div>
+      <div class="muted" style="font-size:12px">${esc(p.role||'')} • ${items.length} مادة</div></div>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>المادة</th><th>العدد</th><th>تاريخ الاستلام</th><th>المستند/الوصل</th><th>الحالة</th><th>صور</th><th></th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+    <div class="btn-row no-print"><button class="btn pri sm" onclick="printPerson('${p.id}')">🖨️ طباعة / PDF</button></div>
+  </div>`;
+}
+</script>
+
+<script>
+/* ============ الأشخاص (بطاقات) ============ */
+function renderPeople(){
+  const q=(document.getElementById('peopleSearch').value||'').trim();
+  let list=CACHE.people.slice().sort((a,b)=>a.name.localeCompare(b.name,'ar'));
+  if(q)list=list.filter(p=>p.name.includes(q));
+  const grid=document.getElementById('peopleGrid');
+  if(!list.length){grid.innerHTML='<div class="empty">لا يوجد أشخاص</div>';return;}
+  grid.innerHTML=list.map(p=>{
+    const cnt=personItems(p.name).length;
+    return `<div class="person-card glass" onclick="openPerson('${p.id}')">
+      <div class="avatar">${esc(p.name.trim()[0]||'؟')}</div>
+      <div class="nm">${esc(p.name)}</div>
+      <div class="ct">${esc(p.role||'')} • <span class="badge">${cnt}</span></div>
+    </div>`;
+  }).join('');
+}
+async function openPerson(id){
+  const p=CACHE.people.find(x=>x.id===id);
+  const html=await personCardFull(p);
+  openModal(`<div class="modal-head"><h3>بطاقة الشخص</h3><button class="icon-btn" onclick="closeModal()">✕</button></div>${html}`);
+  bindThumbs(document.getElementById('modalBox'));
+}
+
+/* ============ النقل (مناقلة) ============ */
+function openTransfer(from,itemName,maxQty,unit){
+  openModal(`<div class="modal-head"><h3>نقل مادة</h3><button class="icon-btn" onclick="closeModal()">✕</button></div>
+    <p class="muted" style="margin:0 0 10px">نقل <b>${esc(itemName)}</b> من <b>${esc(from)}</b> (المتاح لديه: ${maxQty})</p>
+    <label>اسم الشخص المنقولة له</label>
+    <input id="tr_to" list="peopleList" placeholder="يُنشأ تلقائياً إن لم يكن موجوداً">
+    <label>الصفة</label>
+    <select id="tr_role"><option>منتسب</option><option>موظف</option><option>ضابط</option></select>
+    <div class="row c2">
+      <div><label>العدد المنقول</label><input id="tr_qty" type="number" value="${maxQty}" min="1" max="${maxQty}"></div>
+      <div><label>التاريخ</label><input id="tr_date" type="date" value="${todayStr()}"></div>
+    </div>
+    <label>رقم وصل الاستلام والتسليم</label><input id="tr_doc">
+    <label>الصور</label>
+    <div class="photo-row" id="tr_photos"></div>
+    <div class="btn-row">
+      <button class="btn gray sm" onclick="pickPhoto('tr_photos',false)">🖼️ استوديو</button>
+      <button class="btn gray sm" onclick="pickPhoto('tr_photos',true)">📷 التقاط</button>
+    </div>
+    <div class="btn-row"><button class="btn ok full" onclick="doTransfer('${esc(from)}','${esc(itemName)}',${maxQty},'${esc(unit)}')">↔ تنفيذ النقل</button></div>`);
+  photoBuffers['tr_photos']=[];
+}
+async function doTransfer(from,itemName,maxQty,unit){
+  const to=document.getElementById('tr_to').value.trim();
+  if(!to)return toast('اكتب اسم الشخص المنقولة له');
+  if(to===from)return toast('لا يمكن النقل لنفس الشخص');
+  const qty=+document.getElementById('tr_qty').value||0;
+  if(qty<=0||qty>maxQty)return toast('العدد غير صحيح (المتاح '+maxQty+')');
+  const role=document.getElementById('tr_role').value;
+  await ensurePerson(to,role);
+  const photoIds=await savePhotos(photoBuffers['tr_photos']);
+  const t={id:uid(),name:itemName,from,to,role,qty,unit,
+    doc:document.getElementById('tr_doc').value.trim(),
+    date:document.getElementById('tr_date').value||todayStr(),
+    photos:photoIds,created:Date.now()};
+  await dbPut('transfers',t);CACHE.transfers.push(t);
+  photoBuffers['tr_photos']=[];closeModal();fillSelects();toast('✅ تم النقل وحُفظ الوصل');
+  openRecordView('transfer',t.id);
+}
+
+/* ============ عرض المناقلات ============ */
+async function renderTransfers(){
+  const q=(document.getElementById('transSearch').value||'').trim();
+  let list=CACHE.transfers.slice().sort((a,b)=>b.created-a.created);
+  if(q)list=list.filter(t=>t.name.includes(q)||t.from.includes(q)||t.to.includes(q));
+  const box=document.getElementById('transList');
+  if(!list.length){box.innerHTML='<div class="empty">لا توجد مناقلات</div>';return;}
+  let rows='';
+  for(const t of list){
+    rows+=`<tr>
+      <td>${esc(t.name)}</td>
+      <td>${t.qty||1} ${esc(t.unit||'')}</td>
+      <td>${esc(t.from)}</td>
+      <td>${esc(t.to)}</td>
+      <td>${esc(t.date)}</td>
+      <td>${esc(t.doc||'-')}</td>
+      <td>${await thumbsHTML(t.photos)}</td>
+      <td class="no-print"><button class="btn gray sm" onclick="openRecordView('transfer','${t.id}')">عرض</button></td>
+    </tr>`;
+  }
+  box.innerHTML=`<div class="table-wrap"><table>
+    <thead><tr><th>المادة</th><th>العدد</th><th>من</th><th>إلى</th><th>التاريخ</th><th>وصل الاستلام والتسليم</th><th>صور</th><th></th></tr></thead>
+    <tbody>${rows}</tbody></table></div>
+    <div class="btn-row no-print"><button class="btn pri sm" onclick="printSection('سجل المناقلات','transList')">🖨️ طباعة / PDF</button></div>`;
+  bindThumbs(box);
+}
+</script>
+
+<script>
+/* ============ المستهلك ============ */
+let consMode='due';
+function setConsMode(m){consMode=m;['due','done','avail'].forEach(x=>document.getElementById('cm-'+x).classList.toggle('on',x===m));renderCons();}
+function openConsAdd(){
+  openModal(`<div class="modal-head"><h3>إضافة مادة مستهلك</h3><button class="icon-btn" onclick="closeModal()">✕</button></div>
+    <label>اسم المادة</label><input id="co_name" list="itemsList">
+    <div class="row c2"><div><label>الوحدة</label><input id="co_unit" placeholder="علبة / عدد..."></div><div><label>العدد</label><input id="co_qty" type="number" value="1" min="1"></div></div>
+    <label>الحالة</label>
+    <select id="co_status"><option value="due">مستحقة الاستهلاك</option><option value="avail">موجودة حالياً (غير مستهلكة)</option><option value="done">تم استهلاكها</option></select>
+    <div class="row c2"><div><label>رقم المستند</label><input id="co_doc"></div><div><label>التاريخ</label><input id="co_date" type="date" value="${todayStr()}"></div></div>
+    <label>ملاحظات</label><textarea id="co_notes" rows="2"></textarea>
+    <label>الصور</label><div class="photo-row" id="co_photos"></div>
+    <div class="btn-row"><button class="btn gray sm" onclick="pickPhoto('co_photos',false)">🖼️ استوديو</button><button class="btn gray sm" onclick="pickPhoto('co_photos',true)">📷 التقاط</button></div>
+    <div class="btn-row"><button class="btn pri full" onclick="saveCons()">💾 حفظ</button></div>`);
+  photoBuffers['co_photos']=[];
+}
+async function saveCons(){
+  const name=document.getElementById('co_name').value.trim();if(!name)return toast('اكتب اسم المادة');
+  const photoIds=await savePhotos(photoBuffers['co_photos']);
+  const o={id:uid(),name,unit:document.getElementById('co_unit').value.trim(),qty:+document.getElementById('co_qty').value||1,status:document.getElementById('co_status').value,doc:document.getElementById('co_doc').value.trim(),date:document.getElementById('co_date').value||todayStr(),notes:document.getElementById('co_notes').value.trim(),photos:photoIds,created:Date.now()};
+  await dbPut('consumables',o);CACHE.consumables.push(o);
+  photoBuffers['co_photos']=[];closeModal();toast('✅ تم الحفظ');renderCons();renderHome();
+}
+async function setConsStatus(id,status){const o=CACHE.consumables.find(x=>x.id===id);o.status=status;await dbPut('consumables',o);renderCons();renderHome();toast('تم التحديث');}
+async function delCons(id){if(!confirm('حذف المادة؟'))return;await dbDel('consumables',id);CACHE.consumables=CACHE.consumables.filter(x=>x.id!==id);renderCons();renderHome();}
+async function renderCons(){
+  const box=document.getElementById('consList');
+  let list=CACHE.consumables.filter(c=>c.status===consMode).sort((a,b)=>b.created-a.created);
+  if(!list.length){box.innerHTML='<div class="empty">لا توجد مواد في هذا التصنيف</div>';return;}
+  let rows='';
+  for(const c of list){
+    let actions='';
+    if(consMode==='due')actions=`<button class="btn ok sm" onclick="setConsStatus('${c.id}','done')">✓ استُهلكت</button>`;
+    if(consMode==='avail')actions=`<button class="btn sm" style="background:var(--warn);color:#fff" onclick="setConsStatus('${c.id}','due')">⏳ مستحقة</button> <button class="btn ok sm" onclick="setConsStatus('${c.id}','done')">✓ استُهلكت</button>`;
+    if(consMode==='done')actions=`<button class="btn gray sm" onclick="setConsStatus('${c.id}','avail')">↩ إرجاع</button>`;
+    rows+=`<tr><td>${esc(c.name)}</td><td>${c.qty} ${esc(c.unit||'')}</td><td>${esc(c.date)}</td><td>${esc(c.doc||'-')}</td><td>${await thumbsHTML(c.photos)}</td><td class="no-print">${actions} <button class="btn dng sm" onclick="delCons('${c.id}')">حذف</button></td></tr>`;
+  }
+  const titles={due:'مستحقة الاستهلاك',done:'تم استهلاكها',avail:'موجودة حالياً'};
+  box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>المادة</th><th>العدد</th><th>التاريخ</th><th>المستند</th><th>صور</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="btn-row no-print"><button class="btn pri sm" onclick="printSection('المستهلك - ${titles[consMode]}','consList')">🖨️ طباعة / PDF</button></div>`;
+  bindThumbs(box);
+}
+
+/* ============ لوحة المعلومات ============ */
+function renderHome(){
+  document.getElementById('st-items').textContent=stockedItemNames().length;
+  document.getElementById('st-people').textContent=CACHE.people.length;
+  document.getElementById('st-out').textContent=CACHE.outs.length;
+  document.getElementById('st-instock').textContent=stockedItemNames().reduce((a,n)=>a+available(n),0);
+  document.getElementById('st-trans').textContent=CACHE.transfers.length;
+  document.getElementById('st-cons').textContent=CACHE.consumables.filter(c=>c.status==='done').length;
+  renderKnownItems();
+  renderItemsHome();
+}
+</script>
+
+<script>
+/* ============ عرض/طباعة وصل مفرد ============ */
+async function openRecordView(type,id){
+  const store={stockin:'stockins',out:'outs',transfer:'transfers'}[type];
+  const r=await dbGet(store,id);if(!r)return;
+  const ph=await loadPhotos(r.photos);
+  const photoHtml=ph.length?'<div class="thumbs" style="margin-top:8px">'+ph.map(p=>`<img class="thumb" style="width:90px;height:90px" src="${p.src}" data-full="${p.id}">`).join('')+'</div>':'<span class="muted">لا توجد صور</span>';
+  const titles={stockin:'وصل إدخال مخزني',out:'وصل إخراج / تسليم',transfer:'وصل استلام وتسليم (مناقلة)'};
+  let body='';
+  if(type==='stockin')body=`
+    <tr><td>المادة</td><td>${esc(r.name)}</td></tr>
+    <tr><td>العدد / الوحدة</td><td>${r.qty} ${esc(r.unit||'')}</td></tr>
+    <tr><td>المستلم</td><td>${esc(r.receiver||'-')}</td></tr>
+    <tr><td>رقم المستند</td><td>${esc(r.doc||'-')}</td></tr>
+    <tr><td>التاريخ</td><td>${esc(r.date)}</td></tr>
+    <tr><td>ملاحظات</td><td>${esc(r.notes||'-')}</td></tr>`;
+  if(type==='out')body=`
+    <tr><td>المادة</td><td>${esc(r.name)}</td></tr>
+    <tr><td>العدد / الوحدة</td><td>${r.qty} ${esc(r.unit||'')}</td></tr>
+    <tr><td>المُخرَج له</td><td>${esc(r.person)} (${esc(r.role||'')})</td></tr>
+    <tr><td>رقم الوصل</td><td>${esc(r.doc||'-')}</td></tr>
+    <tr><td>التاريخ</td><td>${esc(r.date)}</td></tr>
+    <tr><td>ملاحظات</td><td>${esc(r.notes||'-')}</td></tr>`;
+  if(type==='transfer')body=`
+    <tr><td>المادة</td><td>${esc(r.name)}</td></tr>
+    <tr><td>العدد</td><td>${r.qty} ${esc(r.unit||'')}</td></tr>
+    <tr><td>المنقولة منه</td><td>${esc(r.from)}</td></tr>
+    <tr><td>المنقولة له</td><td>${esc(r.to)} (${esc(r.role||'')})</td></tr>
+    <tr><td>رقم وصل الاستلام والتسليم</td><td>${esc(r.doc||'-')}</td></tr>
+    <tr><td>التاريخ</td><td>${esc(r.date)}</td></tr>`;
+  openModal(`<div class="modal-head"><h3>${titles[type]}</h3><button class="icon-btn" onclick="closeModal()">✕</button></div>
+    <div id="recPrint">
+      <div style="text-align:center;margin-bottom:10px"><div style="font-weight:800">شعبة الميرة — قسم جوازات الناصرية</div><div class="muted" style="font-size:12px">${titles[type]}</div></div>
+      <table style="width:100%"><tbody>${body}</tbody></table>
+      <div style="margin-top:10px"><b>الصور:</b><br>${photoHtml}</div>
+      <div style="display:flex;justify-content:space-between;margin-top:30px;font-size:12px"><div>توقيع المُسلِّم<br><br>.................</div><div>توقيع المُستلِم<br><br>.................</div></div>
+    </div>
+    <div class="btn-row no-print"><button class="btn pri" onclick="printElement('recPrint','${titles[type]}')">🖨️ طباعة / PDF</button><button class="btn gray" onclick="closeModal()">إغلاق</button></div>`);
+  bindThumbs(document.getElementById('modalBox'));
+}
+
+/* ============ طباعة / PDF ============ */
+function printElement(elId,title){printHTML(title,document.getElementById(elId).innerHTML);}
+function printPerson(pid){const el=document.getElementById('person-'+pid);if(!el){toast('افتح البطاقة أولاً');return;}printHTML('بطاقة الشخص',el.innerHTML);}
+function printSection(title,elId){printHTML(title,document.getElementById(elId).innerHTML.replace(/<button[^>]*>[\s\S]*?<\/button>/g,''));}
+function printHTML(title,inner){
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>${title}</title>
+  <style>body{font-family:'Segoe UI',Tahoma,sans-serif;padding:24px;color:#1c2c4a}h1{font-size:18px;text-align:center;margin:0 0 4px}.sub{text-align:center;color:#666;font-size:12px;margin-bottom:16px}table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}th,td{border:1px solid #ccc;padding:7px 9px;text-align:right}th{background:#eef4ff}img{max-width:120px;border-radius:6px;margin:3px}.thumb,.photo-prev{width:90px;height:90px;object-fit:cover}.btn,.no-print,button{display:none!important}.badge,.chip{background:#eef;padding:2px 8px;border-radius:10px;font-size:11px}.avatar{display:none}.stat{display:inline-block;border:1px solid #ccc;border-radius:8px;padding:8px 14px;margin:3px;text-align:center}.stat .v{font-size:18px;font-weight:800}.stat .l{font-size:11px;color:#666}.sec{font-size:14px;font-weight:800;margin:12px 0 6px}@media print{@page{margin:14mm}}</style></head><body>
+  <h1>شعبة الميرة — قسم جوازات الناصرية</h1><div class="sub">${title} — ${new Date().toLocaleDateString('ar')}</div>${inner}</body></html>`);
+  w.document.close();setTimeout(()=>{w.focus();w.print();},400);
+}
+
+/* ============ الإعدادات: تصدير/استيراد ============ */
+function openSettings(){
+  openModal(`<div class="modal-head"><h3>⚙️ الإعدادات والنسخ الاحتياطي</h3><button class="icon-btn" onclick="closeModal()">✕</button></div>
+    <p class="muted">قاعدة بيانات IndexedDB كاملة (تشمل الصور). قابلة للنقل بين الأجهزة.</p>
+    <div class="btn-row"><button class="btn ok full" onclick="exportDB()">⬇️ تصدير قاعدة البيانات (.json)</button></div>
+    <div class="btn-row"><button class="btn pri full" onclick="document.getElementById('importFile').click()">⬆️ استيراد قاعدة بيانات</button></div>
+    <input type="file" id="importFile" accept=".json,application/json" style="display:none" onchange="importDB(this)">
+    <hr class="sep"><div class="btn-row"><button class="btn gray full" onclick="installApp()">📲 تثبيت كتطبيق</button></div>
+    <hr class="sep"><button class="btn dng full" onclick="wipeDB()">🗑️ مسح كل البيانات</button>
+    <p class="muted" style="font-size:11px;margin-top:12px">شعبة الميرة — قسم جوازات الناصرية • يعمل بدون إنترنت</p>`);
+}
+async function exportDB(){
+  toast('جاري التصدير...');
+  const data={meta:{app:'meera',ver:1,date:new Date().toISOString()}};
+  for(const s of STORES)data[s]=await dbAll(s);
+  const blob=new Blob([JSON.stringify(data)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`نسخة_الميرة_${todayStr()}.json`;a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('✅ تم التصدير');
+}
+function importDB(inp){
+  const f=inp.files[0];if(!f)return;
+  const rd=new FileReader();
+  rd.onload=async()=>{
+    try{
+      const data=JSON.parse(rd.result);
+      if(!data.meta||data.meta.app!=='meera'){if(!confirm('الملف قد لا يكون نسخة صحيحة. المتابعة؟'))return;}
+      if(!confirm('سيتم دمج/استبدال البيانات الحالية. متابعة؟'))return;
+      for(const s of STORES)if(Array.isArray(data[s]))for(const o of data[s])await dbPut(s,o);
+      await loadAll();fillSelects();renderHome();closeModal();toast('✅ تم الاستيراد بنجاح');
+    }catch(e){alert('خطأ في قراءة الملف: '+e.message);}
+  };
+  rd.readAsText(f);
+}
+async function wipeDB(){
+  if(!confirm('سيتم حذف كل البيانات نهائياً! متأكد؟'))return;
+  if(!confirm('تأكيد أخير: لا يمكن التراجع.'))return;
+  for(const s of STORES)await new Promise(r=>{const t=tx(s,'readwrite').clear();t.onsuccess=r;t.onerror=r;});
+  await loadAll();fillSelects();renderHome();closeModal();toast('تم المسح');
+}
+
+/* ============ PWA ============ */
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
+async function installApp(){if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;}else toast('للتثبيت: من قائمة المتصفح اختر «تثبيت التطبيق» أو «إضافة للشاشة الرئيسية»');}
+if('serviceWorker' in navigator){
+  const sw=`self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>self.clients.claim());self.addEventListener('fetch',e=>{e.respondWith(caches.open('meera-v1').then(async c=>{const cached=await c.match(e.request);if(cached)return cached;try{const res=await fetch(e.request);if(e.request.method==='GET')c.put(e.request,res.clone());return res;}catch(err){return cached||new Response('offline');}}));});`;
+  navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'text/javascript'}))).catch(()=>{});
+}
+
+/* ============ معالج أخطاء عام ============ */
+window.addEventListener('error',e=>{console.error('خطأ:',e.message);});
+window.addEventListener('unhandledrejection',e=>{console.error('وعد مرفوض:',e.reason);});
+
+/* ============ الإقلاع ============ */
+(async function init(){
+  try{
+    await openDB();
+    await loadAll();
+    const d1=document.getElementById('in_date');if(d1)d1.value=todayStr();
+    const d2=document.getElementById('out_date');if(d2)d2.value=todayStr();
+    fillSelects();renderHome();
+  }catch(e){
+    alert('تعذّر تشغيل قاعدة البيانات: '+(e&&e.message?e.message:e)+'\nقد يكون السبب فتح الملف بطريقة لا تدعم قاعدة البيانات. جرّب رفعه على Vercel/GitHub أو افتحه عبر متصفح حديث.');
+    console.error(e);
+  }
+})();
+</script>
+</body>
+</html>
