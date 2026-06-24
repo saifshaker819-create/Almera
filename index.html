@@ -1179,7 +1179,10 @@ async function renderTransfers(){
           <div style="font-weight:800">${esc(head.from)} ← ${esc(head.to)}</div>
           <div class="muted" style="font-size:12px">${esc(head.date||'')} • وصل: ${esc(head.doc||'-')} • ${g.length} مادة</div>
         </div>
-        <button class="btn pri sm no-print" data-receipt="${dataJson}" onclick="reprintTransfer(this)">🖨️ طباعة الوصل</button>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn pri sm no-print" data-receipt="${dataJson}" onclick="reprintTransfer(this)">🖨️ طباعة الوصل</button>
+          <button class="btn gray sm no-print" onclick="editTransferBatch('${head.batchId||('single_'+head.id)}')">✏️ تعديل</button>
+        </div>
       </div>
       <div class="table-wrap" style="margin-top:8px"><table>
         <thead><tr><th>المادة</th><th>العدد</th><th>صور</th></tr></thead>
@@ -1194,6 +1197,92 @@ function reprintTransfer(btn){
     const data=JSON.parse(btn.getAttribute('data-receipt'));
     openOfficialReceipt(data);
   }catch(e){toast('تعذّر فتح الوصل');console.error(e);}
+}
+// تعديل مناقلة كاملة (كل سجلات نفس الوصل)
+function transfersOfBatch(key){
+  if(key.startsWith('single_')){const id=key.slice(7);return CACHE.transfers.filter(t=>t.id===id);}
+  return CACHE.transfers.filter(t=>t.batchId===key);
+}
+async function editTransferBatch(key){
+  const recs=transfersOfBatch(key);
+  if(!recs.length)return toast('الوصل غير موجود');
+  const h=recs[0];
+  // تحميل صور أول سجل (الصور مشتركة عادةً)
+  const ph=await loadPhotos(h.photos);photoBuffers['etb_photos']=ph.map(p=>p.src);
+  let itemRows=recs.map((t,i)=>`<tr>
+    <td><input id="etb_name_${i}" value="${esc(t.name)}" style="min-width:120px"></td>
+    <td><input id="etb_qty_${i}" type="number" value="${t.qty||1}" min="1" style="width:80px"></td>
+    <td><button class="btn dng sm" onclick="this.closest('tr').remove()">حذف</button></td>
+  </tr>`).join('');
+  const body=`<div class="card glass">
+    <h2 class="sec"><span class="ic">✏️</span> تعديل المناقلة</h2>
+    <label>المنقول منه</label><input id="etb_from" list="peopleList" value="${esc(h.from)}">
+    <div class="row c2"><div><label>رتبة المنقول منه</label><input id="etb_fromRank" value="${esc(h.fromRank||'')}"></div>
+    <div><label>منصب المنقول منه</label><input id="etb_fromRole" value="${esc(h.fromRole||'')}"></div></div>
+    <label>المنقول إليه</label><input id="etb_to" list="peopleList" value="${esc(h.to)}">
+    <div class="row c2"><div><label>رتبة المنقول إليه</label><input id="etb_toRank" value="${esc(h.toRank||'')}"></div>
+    <div><label>منصب المنقول إليه</label><input id="etb_toRole" value="${esc(h.toRole||'')}"></div></div>
+    <div class="row c2"><div><label>رتبة المصادق</label><input id="etb_apRank" value="${esc(h.apRank||'')}"></div>
+    <div><label>اسم المصادق</label><input id="etb_apName" value="${esc(h.apName||'')}"></div></div>
+    <div class="row c2"><div><label>رقم الوصل</label><input id="etb_doc" value="${esc(h.doc||'')}"></div>
+    <div><label>التاريخ</label><input id="etb_date" type="date" value="${esc(h.date||'')}"></div></div>
+    <label>المواد المنقولة</label>
+    <div class="table-wrap"><table id="etb_items"><thead><tr><th>المادة</th><th>العدد</th><th></th></tr></thead>
+    <tbody>${itemRows}</tbody></table></div>
+    <label>الصور</label><div class="photo-row" id="etb_photos"></div>
+    <div class="btn-row"><button class="btn gray sm" onclick="pickPhoto('etb_photos',false)">🖼️ استوديو</button><button class="btn gray sm" onclick="pickPhoto('etb_photos',true)">📷 التقاط</button></div>
+    <div class="btn-row"><button class="btn ok full" onclick="saveTransferBatch('${key}')">💾 حفظ التعديلات</button></div>
+    <div class="btn-row"><button class="btn dng full" onclick="deleteTransferBatch('${key}')">🗑️ حذف المناقلة بالكامل</button></div>
+  </div>`;
+  openFull('تعديل المناقلة',body,'تعديل المناقلة');
+  document.getElementById('fpPrintBtn').style.display='none';
+  renderPhotoBuffer('etb_photos');
+}
+async function saveTransferBatch(key){
+  const recs=transfersOfBatch(key);
+  if(!recs.length)return;
+  const from=document.getElementById('etb_from').value.trim();
+  const to=document.getElementById('etb_to').value.trim();
+  if(!from||!to)return toast('اكتب المنقول منه وإليه');
+  const fromRank=document.getElementById('etb_fromRank').value.trim();
+  const fromRole=document.getElementById('etb_fromRole').value.trim();
+  const toRank=document.getElementById('etb_toRank').value.trim();
+  const toRole=document.getElementById('etb_toRole').value.trim();
+  const apRank=document.getElementById('etb_apRank').value.trim();
+  const apName=document.getElementById('etb_apName').value.trim();
+  const doc=document.getElementById('etb_doc').value.trim();
+  const date=document.getElementById('etb_date').value||todayStr();
+  await ensurePerson(from);await ensurePerson(to);
+  await updatePersonInfo(from,{rank:fromRank,position:fromRole});
+  await updatePersonInfo(to,{rank:toRank,position:toRole});
+  await dbPut('meta',{id:'approver',rank:apRank,name:apName});
+  const photoIds=await savePhotos(photoBuffers['etb_photos']);
+  // قراءة صفوف المواد المتبقية في الجدول
+  const trEls=[...document.querySelectorAll('#etb_items tbody tr')];
+  const newItems=trEls.map(tr=>{
+    const name=tr.querySelector('input[id^="etb_name_"]').value.trim();
+    const qty=+tr.querySelector('input[id^="etb_qty_"]').value||1;
+    return {name,qty};
+  }).filter(x=>x.name);
+  if(!newItems.length)return toast('يجب إبقاء مادة واحدة على الأقل');
+  // حذف سجلات الوصل القديمة وإعادة إنشائها بنفس batchId
+  const batchId=recs[0].batchId||uid();
+  for(const t of recs){await dbDel('transfers',t.id);}
+  CACHE.transfers=CACHE.transfers.filter(t=>!recs.some(r=>r.id===t.id));
+  for(const it of newItems){
+    const t={id:uid(),batchId,name:it.name,from,to,role:recs[0].role||'منتسب',qty:it.qty,unit:unitOf(it.name),
+      fromRank,fromRole,toRank,toRole,apRank,apName,doc,date,photos:photoIds,created:Date.now()};
+    await dbPut('transfers',t);CACHE.transfers.push(t);
+  }
+  photoBuffers['etb_photos']=[];
+  fillSelects();renderHome();closeFull();go('trans');renderTransfers();toast('✅ تم حفظ التعديلات');
+}
+async function deleteTransferBatch(key){
+  if(!confirm('حذف هذه المناقلة بالكامل؟'))return;
+  const recs=transfersOfBatch(key);
+  for(const t of recs){await dbDel('transfers',t.id);}
+  CACHE.transfers=CACHE.transfers.filter(t=>!recs.some(r=>r.id===t.id));
+  fillSelects();renderHome();closeFull();go('trans');renderTransfers();toast('تم حذف المناقلة');
 }
 </script>
 
