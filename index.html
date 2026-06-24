@@ -989,14 +989,40 @@ async function personCardFull(p){
   return `<div class="card glass" id="person-${p.id}">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
       <div class="avatar">${esc(initial)}</div>
-      <div><div style="font-weight:800;font-size:16px">${esc(p.name)}</div>
+      <div style="flex:1"><div style="font-weight:800;font-size:16px">${esc(p.name)}</div>
       <div class="muted" style="font-size:12px">${esc(p.role||'')} • بحوزته الآن: ${personActiveCount(p.name)}</div></div>
+      <button class="btn gray sm no-print" onclick="renamePerson('${p.id}')">✏️ تعديل الاسم</button>
     </div>
     <div class="table-wrap"><table>
       <thead><tr><th>المادة</th><th>العدد</th><th>التاريخ</th><th>المستند/الوصل</th><th>الحالة</th><th>صور</th><th></th></tr></thead>
       <tbody>${rows}</tbody></table></div>
     <div class="btn-row no-print"><button class="btn pri sm" onclick="printPerson('${p.id}')">🖨️ طباعة / PDF</button></div>
   </div>`;
+}
+/* تعديل اسم الشخص في كل السجلات */
+function renamePerson(id){
+  const p=CACHE.people.find(x=>x.id===id);if(!p)return;
+  openModal(`<div class="modal-head"><h3>تعديل اسم الشخص</h3><button class="icon-btn" onclick="closeModal()">✕</button></div>
+    <label>الاسم الحالي</label><input value="${esc(p.name)}" disabled>
+    <label>الاسم الجديد</label><input id="rp_new" value="${esc(p.name)}">
+    <div class="btn-row"><button class="btn pri full" onclick="doRenamePerson('${id}')">💾 حفظ التعديل</button></div>`);
+  setTimeout(()=>{const e=document.getElementById('rp_new');e.focus();e.select();},100);
+}
+async function doRenamePerson(id){
+  const p=CACHE.people.find(x=>x.id===id);if(!p)return;
+  const oldName=p.name;
+  const nw=document.getElementById('rp_new').value.trim();
+  if(!nw)return toast('اكتب الاسم الجديد');
+  if(nw===oldName){closeModal();return;}
+  if(CACHE.people.some(x=>x.name===nw&&x.id!==id))return toast('يوجد شخص بنفس الاسم');
+  // تحديث الاسم في كل السجلات
+  p.name=nw;await dbPut('people',p);
+  for(const o of CACHE.outs)if(o.person===oldName){o.person=nw;await dbPut('outs',o);}
+  for(const t of CACHE.transfers){let ch=false;if(t.from===oldName){t.from=nw;ch=true;}if(t.to===oldName){t.to=nw;ch=true;}if(ch)await dbPut('transfers',t);}
+  for(const s of CACHE.stockins)if(s.receiver===oldName){s.receiver=nw;await dbPut('stockins',s);}
+  closeModal();fillSelects();renderPeople();
+  if(document.getElementById('fullPage').classList.contains('show'))openPerson(id);
+  toast('✅ تم تعديل اسم الشخص');
 }
 </script>
 
@@ -1044,10 +1070,19 @@ async function viewTransfer(id){
 
 /* ============ النقل (مناقلة) ============ */
 function openTransfer(from,itemName,maxQty,unit){
+  const pf=CACHE.people.find(p=>p.name===from)||{};
   openModal(`<div class="modal-head"><h3>نقل مادة</h3><button class="icon-btn" onclick="closeModal()">✕</button></div>
     <p class="muted" style="margin:0 0 10px">نقل <b>${esc(itemName)}</b> من <b>${esc(from)}</b> (المتاح لديه: ${maxQty})</p>
+    <div class="row c2">
+      <div><label>رتبة المنقول منه</label><input id="tr_fromRank" value="${esc(pf.rank||'')}" placeholder="الرتبة"></div>
+      <div><label>منصب المنقول منه</label><input id="tr_fromRole" value="${esc(pf.position||'')}" placeholder="المنصب"></div>
+    </div>
     <label>اسم الشخص المنقولة له</label>
-    <input id="tr_to" list="peopleList" placeholder="يُنشأ تلقائياً إن لم يكن موجوداً">
+    <input id="tr_to" list="peopleList" placeholder="يُنشأ تلقائياً إن لم يكن موجوداً" oninput="trFillTo()">
+    <div class="row c2">
+      <div><label>رتبة المنقول إليه</label><input id="tr_toRank" placeholder="الرتبة"></div>
+      <div><label>منصب المنقول إليه</label><input id="tr_toRole" placeholder="المنصب"></div>
+    </div>
     <label>الصفة</label>
     <select id="tr_role"><option>منتسب</option><option>موظف</option><option>ضابط</option></select>
     <div class="row c2">
@@ -1055,6 +1090,12 @@ function openTransfer(from,itemName,maxQty,unit){
       <div><label>التاريخ</label><input id="tr_date" type="date" value="${todayStr()}"></div>
     </div>
     <label>رقم وصل الاستلام والتسليم</label><input id="tr_doc">
+    <hr class="sep">
+    <label>المصادقة — ضابط الميرة</label>
+    <div class="row c2">
+      <div><label>رتبة المصادق</label><input id="tr_apRank" placeholder="الرتبة"></div>
+      <div><label>اسم المصادق</label><input id="tr_apName" placeholder="الاسم"></div>
+    </div>
     <label>الصور</label>
     <div class="photo-row" id="tr_photos"></div>
     <div class="btn-row">
@@ -1063,6 +1104,11 @@ function openTransfer(from,itemName,maxQty,unit){
     </div>
     <div class="btn-row"><button class="btn ok full" onclick="doTransfer('${esc(from)}','${esc(itemName)}',${maxQty},'${esc(unit)}')">↔ تنفيذ النقل</button></div>`);
   photoBuffers['tr_photos']=[];
+  dbGet('meta','approver').then(m=>{if(m){const r=document.getElementById('tr_apRank'),n=document.getElementById('tr_apName');if(r&&m.rank)r.value=m.rank;if(n&&m.name)n.value=m.name;}});
+}
+function trFillTo(){
+  const p=CACHE.people.find(x=>x.name===document.getElementById('tr_to').value.trim());
+  if(p){const r=document.getElementById('tr_toRank'),n=document.getElementById('tr_toRole');if(r&&p.rank)r.value=p.rank;if(n&&p.position)n.value=p.position;if(p.role)document.getElementById('tr_role').value=p.role;}
 }
 async function doTransfer(from,itemName,maxQty,unit){
   const to=document.getElementById('tr_to').value.trim();
@@ -1071,22 +1117,25 @@ async function doTransfer(from,itemName,maxQty,unit){
   const qty=+document.getElementById('tr_qty').value||0;
   if(qty<=0||qty>maxQty)return toast('العدد غير صحيح (المتاح '+maxQty+')');
   const role=document.getElementById('tr_role').value;
+  const fromRank=document.getElementById('tr_fromRank').value.trim();
+  const fromRole=document.getElementById('tr_fromRole').value.trim();
+  const toRank=document.getElementById('tr_toRank').value.trim();
+  const toRole=document.getElementById('tr_toRole').value.trim();
+  const apRank=document.getElementById('tr_apRank').value.trim();
+  const apName=document.getElementById('tr_apName').value.trim();
   await ensurePerson(to,role);
+  await updatePersonInfo(from,{rank:fromRank,position:fromRole});
+  await updatePersonInfo(to,{rank:toRank,position:toRole,role});
+  await dbPut('meta',{id:'approver',rank:apRank,name:apName});
   const photoIds=await savePhotos(photoBuffers['tr_photos']);
-  const pf=CACHE.people.find(p=>p.name===from)||{};
-  const pt=CACHE.people.find(p=>p.name===to)||{};
-  const ap=await dbGet('meta','approver')||{};
   const t={id:uid(),batchId:uid(),name:itemName,from,to,role,qty,unit,
-    fromRank:pf.rank||'',fromRole:pf.position||'',
-    toRank:pt.rank||'',toRole:pt.position||'',
-    apRank:ap.rank||'',apName:ap.name||'',
+    fromRank,fromRole,toRank,toRole,apRank,apName,
     doc:document.getElementById('tr_doc').value.trim(),
     date:document.getElementById('tr_date').value||todayStr(),
     photos:photoIds,created:Date.now()};
   await dbPut('transfers',t);CACHE.transfers.push(t);
   photoBuffers['tr_photos']=[];closeModal();fillSelects();toast('✅ تم النقل وحُفظ الوصل');
-  // فتح الوصل الرسمي القابل للطباعة
-  openOfficialReceipt({from,fromRank:t.fromRank,fromRole:t.fromRole,to,toRank:t.toRank,toRole:t.toRole,apRank:t.apRank,apName:t.apName,doc:t.doc,date:t.date,items:[{name:itemName,qty}]});
+  openOfficialReceipt({from,fromRank,fromRole,to,toRank,toRole,apRank,apName,doc:t.doc,date:t.date,items:[{name:itemName,qty}]});
 }
 
 /* ============ عرض المناقلات ============ */
@@ -1174,6 +1223,34 @@ async function saveCons(){
 }
 async function setConsStatus(id,status){const o=CACHE.consumables.find(x=>x.id===id);o.status=status;await dbPut('consumables',o);renderCons();renderHome();toast('تم التحديث');}
 async function delCons(id){if(!confirm('حذف المادة؟'))return;await dbDel('consumables',id);CACHE.consumables=CACHE.consumables.filter(x=>x.id!==id);renderCons();renderHome();}
+async function editCons(id){
+  const c=CACHE.consumables.find(x=>x.id===id);if(!c)return;
+  const ph=await loadPhotos(c.photos);photoBuffers['ec_photos']=ph.map(p=>p.src);
+  openModal(`<div class="modal-head"><h3>تعديل مادة المستهلك</h3><button class="icon-btn" onclick="closeModal()">✕</button></div>
+    <label>اسم المادة</label><input id="ec_name" value="${esc(c.name)}">
+    <div class="row c2"><div><label>الوحدة</label><input id="ec_unit" value="${esc(c.unit||'')}"></div><div><label>العدد</label><input id="ec_qty" type="number" value="${c.qty}"></div></div>
+    <label>الحالة</label><select id="ec_status"><option value="due" ${c.status==='due'?'selected':''}>مستحقة الاستهلاك</option><option value="avail" ${c.status==='avail'?'selected':''}>موجودة حالياً</option><option value="done" ${c.status==='done'?'selected':''}>تم استهلاكها</option></select>
+    <div class="row c2"><div><label>رقم المستند</label><input id="ec_doc" value="${esc(c.doc||'')}"></div><div><label>التاريخ</label><input id="ec_date" type="date" value="${esc(c.date||'')}"></div></div>
+    <label>ملاحظات</label><textarea id="ec_notes" rows="2">${esc(c.notes||'')}</textarea>
+    <label>الصور</label><div class="photo-row" id="ec_photos"></div>
+    <div class="btn-row"><button class="btn gray sm" onclick="pickPhoto('ec_photos',false)">🖼️ استوديو</button><button class="btn gray sm" onclick="pickPhoto('ec_photos',true)">📷 التقاط</button></div>
+    <div class="btn-row"><button class="btn ok full" onclick="saveEditCons('${id}')">💾 حفظ</button></div>`);
+  renderPhotoBuffer('ec_photos');
+}
+async function saveEditCons(id){
+  const c=CACHE.consumables.find(x=>x.id===id);if(!c)return;
+  const photoIds=await savePhotos(photoBuffers['ec_photos']);
+  c.name=document.getElementById('ec_name').value.trim()||c.name;
+  c.unit=document.getElementById('ec_unit').value.trim();
+  c.qty=+document.getElementById('ec_qty').value||c.qty;
+  c.status=document.getElementById('ec_status').value;
+  c.doc=document.getElementById('ec_doc').value.trim();
+  c.date=document.getElementById('ec_date').value||c.date;
+  c.notes=document.getElementById('ec_notes').value.trim();
+  c.photos=photoIds;
+  await dbPut('consumables',c);
+  photoBuffers['ec_photos']=[];closeModal();renderCons();renderHome();toast('✅ تم حفظ التعديل');
+}
 async function renderCons(){
   const box=document.getElementById('consList');
   let list=CACHE.consumables.filter(c=>c.status===consMode).sort((a,b)=>b.created-a.created);
@@ -1184,7 +1261,7 @@ async function renderCons(){
     if(consMode==='due')actions=`<button class="btn ok sm" onclick="setConsStatus('${c.id}','done')">✓ استُهلكت</button>`;
     if(consMode==='avail')actions=`<button class="btn sm" style="background:var(--warn);color:#fff" onclick="setConsStatus('${c.id}','due')">⏳ مستحقة</button> <button class="btn ok sm" onclick="setConsStatus('${c.id}','done')">✓ استُهلكت</button>`;
     if(consMode==='done')actions=`<button class="btn gray sm" onclick="setConsStatus('${c.id}','avail')">↩ إرجاع</button>`;
-    rows+=`<tr><td>${esc(c.name)}</td><td>${c.qty} ${esc(c.unit||'')}</td><td>${esc(c.date)}</td><td>${esc(c.doc||'-')}</td><td>${await thumbsHTML(c.photos)}</td><td class="no-print">${actions} <button class="btn dng sm" onclick="delCons('${c.id}')">حذف</button></td></tr>`;
+    rows+=`<tr><td>${esc(c.name)}</td><td>${c.qty} ${esc(c.unit||'')}</td><td>${esc(c.date)}</td><td>${esc(c.doc||'-')}</td><td>${await thumbsHTML(c.photos)}</td><td class="no-print">${actions} <button class="btn gray sm" onclick="editCons('${c.id}')">✏️</button> <button class="btn dng sm" onclick="delCons('${c.id}')">حذف</button></td></tr>`;
   }
   const titles={due:'مستحقة الاستهلاك',done:'تم استهلاكها',avail:'موجودة حالياً'};
   box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>المادة</th><th>العدد</th><th>التاريخ</th><th>المستند</th><th>صور</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
@@ -1246,11 +1323,97 @@ async function openRecordView(type,id){
     <div style="margin-top:14px" class="no-print"><b>الصور المرفقة:</b><br>${photoThumbs}</div>
     <div class="btn-row no-print">
       <button class="btn pri" onclick='printReceipt(${JSON.stringify(titles[type])},document.getElementById("recInfo").innerHTML,${JSON.stringify(photoSrcs)})'>🖨️ طباعة / PDF</button>
+      <button class="btn gray" onclick="editRecord('${type}','${id}')">✏️ تعديل</button>
     </div>
   </div>`;
   // إغلاق أي مودال مفتوح وفتح صفحة مستقلة
   closeModal();
   openFull(titles[type],html,titles[type]);
+}
+
+/* ============ تعديل سجل كامل (معلومات + صور) ============ */
+async function editRecord(type,id){
+  const store={stockin:'stockins',out:'outs',transfer:'transfers'}[type];
+  const r=await dbGet(store,id);if(!r)return;
+  const ph=await loadPhotos(r.photos);
+  photoBuffers['edit_photos']=ph.map(p=>p.src); // الصور الحالية كـ dataURL
+  let fields='';
+  if(type==='stockin')fields=`
+    <label>المادة</label><input id="ed_name" value="${esc(r.name)}">
+    <div class="row c2"><div><label>العدد</label><input id="ed_qty" type="number" value="${r.qty}"></div>
+    <div><label>الوحدة</label><input id="ed_unit" value="${esc(r.unit||'')}"></div></div>
+    <label>المستلم</label><input id="ed_receiver" list="peopleList" value="${esc(r.receiver||'')}">
+    <div class="row c2"><div><label>رقم المستند</label><input id="ed_doc" value="${esc(r.doc||'')}"></div>
+    <div><label>التاريخ</label><input id="ed_date" type="date" value="${esc(r.date||'')}"></div></div>
+    <label>ملاحظات</label><textarea id="ed_notes" rows="2">${esc(r.notes||'')}</textarea>`;
+  if(type==='out')fields=`
+    <label>المادة</label><input id="ed_name" value="${esc(r.name)}">
+    <div class="row c2"><div><label>العدد</label><input id="ed_qty" type="number" value="${r.qty}"></div>
+    <div><label>الوحدة</label><input id="ed_unit" value="${esc(r.unit||'')}"></div></div>
+    <label>المُخرَج له</label><input id="ed_person" list="peopleList" value="${esc(r.person||'')}">
+    <label>الصفة</label><select id="ed_role"><option ${r.role==='منتسب'?'selected':''}>منتسب</option><option ${r.role==='موظف'?'selected':''}>موظف</option><option ${r.role==='ضابط'?'selected':''}>ضابط</option></select>
+    <div class="row c2"><div><label>رقم الوصل</label><input id="ed_doc" value="${esc(r.doc||'')}"></div>
+    <div><label>التاريخ</label><input id="ed_date" type="date" value="${esc(r.date||'')}"></div></div>
+    <label>ملاحظات</label><textarea id="ed_notes" rows="2">${esc(r.notes||'')}</textarea>`;
+  if(type==='transfer')fields=`
+    <label>المادة</label><input id="ed_name" value="${esc(r.name)}">
+    <div class="row c2"><div><label>العدد</label><input id="ed_qty" type="number" value="${r.qty}"></div>
+    <div><label>الوحدة</label><input id="ed_unit" value="${esc(r.unit||'')}"></div></div>
+    <label>المنقولة منه</label><input id="ed_from" list="peopleList" value="${esc(r.from||'')}">
+    <div class="row c2"><div><label>رتبة المنقول منه</label><input id="ed_fromRank" value="${esc(r.fromRank||'')}"></div>
+    <div><label>منصب المنقول منه</label><input id="ed_fromRole" value="${esc(r.fromRole||'')}"></div></div>
+    <label>المنقولة له</label><input id="ed_to" list="peopleList" value="${esc(r.to||'')}">
+    <div class="row c2"><div><label>رتبة المنقول إليه</label><input id="ed_toRank" value="${esc(r.toRank||'')}"></div>
+    <div><label>منصب المنقول إليه</label><input id="ed_toRole" value="${esc(r.toRole||'')}"></div></div>
+    <div class="row c2"><div><label>رتبة المصادق</label><input id="ed_apRank" value="${esc(r.apRank||'')}"></div>
+    <div><label>اسم المصادق</label><input id="ed_apName" value="${esc(r.apName||'')}"></div></div>
+    <div class="row c2"><div><label>رقم الوصل</label><input id="ed_doc" value="${esc(r.doc||'')}"></div>
+    <div><label>التاريخ</label><input id="ed_date" type="date" value="${esc(r.date||'')}"></div></div>`;
+  const body=`<div class="card glass">
+    <h2 class="sec"><span class="ic">✏️</span> تعديل السجل</h2>
+    ${fields}
+    <label>الصور</label>
+    <div class="photo-row" id="edit_photos"></div>
+    <div class="btn-row">
+      <button class="btn gray sm" onclick="pickPhoto('edit_photos',false)">🖼️ استوديو</button>
+      <button class="btn gray sm" onclick="pickPhoto('edit_photos',true)">📷 التقاط</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn ok full" onclick="saveEditRecord('${type}','${id}')">💾 حفظ التعديلات</button>
+    </div>
+  </div>`;
+  openFull('تعديل السجل',body,'تعديل السجل');
+  document.getElementById('fpPrintBtn').style.display='none';
+  renderPhotoBuffer('edit_photos');
+}
+async function saveEditRecord(type,id){
+  const store={stockin:'stockins',out:'outs',transfer:'transfers'}[type];
+  const r=await dbGet(store,id);if(!r)return;
+  const gv=x=>{const e=document.getElementById(x);return e?e.value.trim():undefined;};
+  // حفظ الصور الجديدة (المخزّنة في الـ buffer كـ dataURL)
+  const photoIds=await savePhotos(photoBuffers['edit_photos']);
+  r.name=gv('ed_name')||r.name;
+  r.qty=+document.getElementById('ed_qty').value||r.qty;
+  r.unit=gv('ed_unit');
+  r.doc=gv('ed_doc');r.date=gv('ed_date')||r.date;
+  r.photos=photoIds;
+  if(type==='stockin'){r.receiver=gv('ed_receiver');r.notes=gv('ed_notes');if(r.receiver)await ensurePerson(r.receiver);}
+  if(type==='out'){r.person=gv('ed_person');r.role=gv('ed_role');r.notes=gv('ed_notes');if(r.person)await ensurePerson(r.person,r.role);}
+  if(type==='transfer'){
+    r.from=gv('ed_from');r.to=gv('ed_to');
+    r.fromRank=gv('ed_fromRank');r.fromRole=gv('ed_fromRole');
+    r.toRank=gv('ed_toRank');r.toRole=gv('ed_toRole');
+    r.apRank=gv('ed_apRank');r.apName=gv('ed_apName');
+    if(r.to)await ensurePerson(r.to);
+  }
+  await dbPut(store,r);
+  // تحديث الكاش
+  const arr=CACHE[store];const idx=arr.findIndex(x=>x.id===id);if(idx>=0)arr[idx]=r;
+  photoBuffers['edit_photos']=[];
+  fillSelects();renderHome();renderTransfers();
+  closeFull();toast('✅ تم حفظ التعديلات');
+  // إعادة فتح الوصل المحدّث
+  openRecordView(type,id);
 }
 
 /* طباعة الوصل: المعلومات بصفحة، وكل صورة بصفحة كاملة مستقلة */
@@ -1325,6 +1488,9 @@ function importDB(inp){
   rd.readAsText(f);
 }
 async function wipeDB(){
+  const code=prompt('لمسح جميع البيانات، أدخل رمز الأمان:');
+  if(code===null)return;
+  if(code.trim()!=='saif100200300'){alert('رمز الأمان غير صحيح. تم إلغاء العملية.');return;}
   if(!confirm('سيتم حذف كل البيانات نهائياً! متأكد؟'))return;
   if(!confirm('تأكيد أخير: لا يمكن التراجع.'))return;
   for(const s of STORES)await new Promise(r=>{const t=tx(s,'readwrite').clear();t.onsuccess=r;t.onerror=r;});
@@ -1377,6 +1543,22 @@ window.addEventListener('error',e=>{console.error('خطأ:',e.message);});
 window.addEventListener('unhandledrejection',e=>{console.error('وعد مرفوض:',e.reason);});
 
 /* ============ الإقلاع ============ */
+/* ============ حماية الكود ============ */
+(function protect(){
+  // تعطيل قائمة الزر الأيمن
+  document.addEventListener('contextmenu',e=>e.preventDefault());
+  // تعطيل اختصارات أدوات المطور وعرض المصدر
+  document.addEventListener('keydown',e=>{
+    const k=(e.key||'').toLowerCase();
+    if(e.key==='F12'){e.preventDefault();return false;}
+    if(e.ctrlKey&&e.shiftKey&&(k==='i'||k==='j'||k==='c')){e.preventDefault();return false;}
+    if(e.ctrlKey&&(k==='u'||k==='s')){e.preventDefault();return false;}
+    if(e.metaKey&&e.altKey&&(k==='i'||k==='j'||k==='c')){e.preventDefault();return false;}
+  });
+  // منع سحب الصور
+  document.addEventListener('dragstart',e=>{if(e.target&&e.target.tagName==='IMG')e.preventDefault();});
+})();
+
 (async function init(){
   try{
     await openDB();
